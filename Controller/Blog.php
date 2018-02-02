@@ -39,4 +39,34 @@ class Blog
   {
       $this->oUtil->getView('not_found');
   }
+
+  public function post()
+  {
+    $this->oUtil->oPost = $this->oModel->getById($this->_iId); // Récupère les données du post
+	  $this->oUtil->oComments = $this->oModel->getComments();
+
+  	if (isset($_POST['submit_comment']))
+    {
+        if (empty($_POST['name']) || empty($_POST['comment']))
+        {
+          $this->oUtil->sErrMsg = 'Tous les champs n\'ont pas été remplis';
+        }
+        else
+        {
+          $aData = array('name' => $_POST['name'], 'comment' => $_POST['comment'], 'post_id' => $_GET['id']);
+          $this->oModel->addComment($aData);
+          ?> <script>window.location.replace('?p=blog&a=post&id=<?= $_GET['id'] ?>');</script> <?php
+          $this->oUtil->sSuccMsg = 'Le Commentaire a été posté !';
+        }
+    }
+    $this->oUtil->getView('post');
+  }
+
+  public function chapters()
+  {
+    $this->oUtil->oChapters = $this->oModel->getAll();
+
+    $this->oUtil->getView('chapters');
+  }
+
 }
