@@ -1,6 +1,6 @@
 <?php
 
-namespace TestProject\Engine;
+namespace BlogPhp\Engine;
 
 final class Config
 {

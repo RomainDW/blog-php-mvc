@@ -1,6 +1,6 @@
 <?php
 
-namespace TestProject\Engine;
+namespace BlogPhp\Engine;
 
 class Db extends \PDO
 {

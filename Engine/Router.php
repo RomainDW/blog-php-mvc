@@ -1,6 +1,6 @@
 <?php
 
-namespace TestProject\Engine;
+namespace BlogPhp\Engine;
 
 // On crée la class Router pour gérer l'éxécution d'un certain code suivant l'URL qui est tapée par l'utilisateur.
 class Router
