@@ -33,4 +33,10 @@ class Blog
 
       $this->oUtil->getView('index');
   }
+
+  // Page 404
+  public function notFound()
+  {
+      $this->oUtil->getView('not_found');
+  }
 }
