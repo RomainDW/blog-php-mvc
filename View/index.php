@@ -1,4 +1,5 @@
 <?php require 'inc/header.php' ?>
+<?php require 'inc/topbar.php' ?>
 
 <?php if (empty($this->oPosts)): ?>
     <h1>Il n'y a aucun article.</h1>
