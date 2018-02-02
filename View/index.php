@@ -1,3 +1,5 @@
+<?php require 'inc/header.php' ?>
+
 <?php if (empty($this->oPosts)): ?>
     <p class="bold">Il n'y a aucun article.</p>
     <p><button type="button" onclick="window.location='<?=ROOT_URL?>?p=blog&amp;a=add'" class="bold">Ajoutez votre premier article!</button></p>
