@@ -26,7 +26,7 @@
 	<?php else: ?>
 	<?php foreach ($this->oComments as $oComment): ?>
     <blockquote id="blockquote">
-      <strong><?= $oComment->name ?> <em>Le (<?= date('d/m/Y', strtotime($oComment->date)) ?>)</em></strong>
+      <strong><?= $oComment->name ?> <em>(Le <?= date('d/m/Y', strtotime($oComment->date)) ?>)</em></strong>
       <p><?= nl2br($oComment->comment); ?></p>
     </blockquote>
 	<?php endforeach ?>
