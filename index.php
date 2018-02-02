@@ -8,3 +8,15 @@ use BlogPhp\Engine as E;
 define('PROT', (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? 'https://' : 'http://');
 define('ROOT_URL', PROT . $_SERVER['HTTP_HOST'] . str_replace('\\', '', dirname(htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES))) . '/'); // On supprime les backslashes Pour la compatibilité Windows
 define('ROOT_PATH', __DIR__ . '/');
+
+try
+{
+    require ROOT_PATH . 'Engine/Loader.php';
+    E\Loader::getInstance()->init(); // Charge les class nécessaires
+    $aParams = ['ctrl' => (!empty($_GET['p']) ? $_GET['p'] : 'blog'), 'act' => (!empty($_GET['a']) ? $_GET['a'] : 'index')];
+    E\Router::run($aParams);
+}
+catch (\Exception $oE)
+{
+    echo $oE->getMessage();
+}
