@@ -2,6 +2,7 @@
 
 namespace TestProject\Engine;
 
+// On crée la class Router pour gérer l'éxécution d'un certain code suivant l'URL qui est tapée par l'utilisateur.
 class Router
 {
     public static function run (array $aParams)
@@ -18,7 +19,7 @@ class Router
 
             // La classe ReflectionClass rapporte des informations sur une classe.
             // La classe ReflectionMethod rapporte des informations sur une méthode.
-            // call_user_func : Appelle une fonction de rappel callback fournie par le paramètre callback où les autres arguments seront passés en paramètre. 
+            // call_user_func : Appelle une fonction de rappel callback fournie par le paramètre callback où les autres arguments seront passés en paramètre.
             if ((new \ReflectionClass($oCtrl))->hasMethod($aParams['act']) && (new \ReflectionMethod($oCtrl, $aParams['act']))->isPublic())
                 call_user_func(array($oCtrl, $aParams['act']));
             else
