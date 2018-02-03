@@ -2,6 +2,10 @@
 
 namespace BlogPhp\Controller;
 
+if (empty($_GET['a'])) {
+	$_GET['a'] = 'index';
+}
+
 class Blog
 {
   const MAX_POSTS = 5;
