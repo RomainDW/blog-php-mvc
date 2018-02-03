@@ -90,4 +90,40 @@ class Admin extends Blog
       $this->oModel->delete($_GET['id']);
       header('Location: ?p=admin&a=edit');
     }
+
+    public function add()
+    {
+      if (!$this->isLogged())
+      header('Location: ?p=blog&a=index');
+
+      if (isset($_POST['add_submit']))
+      {
+          if (empty($_POST['title']) || empty($_POST['body']))
+          {
+            $this->oUtil->sErrMsg = 'Tous les champs doivent être remplis.';
+          }
+          else
+          {
+            $aData = array('title' => $_POST['title'], 'body' => $_POST['body'], 'created_date' => date('Y-m-d H:i:s'));
+            $this->oModel->add($aData);
+
+            if (!empty($_FILES['image']['name']))
+            {
+              $file = $_FILES['image']['name'];
+              $extensions = ['.png','.jpg','.jpeg','.gif','.PNG','.JPG','.JPEG','.GIF'];
+              $extension = strrchr($file, '.');
+              if(!in_array($extension,$extensions)){
+        				  $this->oUtil->sErrMsg = "Cette image n'est pas valable";
+        			}
+              $this->oModel->postImg($_FILES['image']['tmp_name'], $extension);
+            }
+
+            $this->oUtil->sSuccMsg = 'L\'article a bien été ajouté !';
+          }
+
+
+      }
+
+      $this->oUtil->getView('add_post');
+    }
 }
