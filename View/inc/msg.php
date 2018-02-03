@@ -7,5 +7,9 @@
 <?php endif ?>
 
 <?php if (!empty($this->sSuccMsg)): ?>
-  <p><?=$this->sSuccMsg?></p>
+  <div class="card green">
+    <div class="card-content white-text">
+        <?php  echo $this->sSuccMsg.'<br/>'; ?>
+    </div>
+  </div>
 <?php endif ?>
