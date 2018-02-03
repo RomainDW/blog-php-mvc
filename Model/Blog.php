@@ -78,4 +78,16 @@ class Blog
     move_uploaded_file($tmp_name,"static/img/posts/".$i['image']);
     return $oStmt->execute($i);
   }
+
+  public function updateImg($name, $id, $tmp_name)
+  {
+    $i = [
+      'id'     => $id,
+      'image'  => $name
+    ];
+
+    $oStmt = $this->oDb->prepare('UPDATE Posts SET image = :image WHERE id = :id');
+    move_uploaded_file($tmp_name,"static/img/posts/".$i['image']);
+    return $oStmt->execute($i);
+  }
 }
