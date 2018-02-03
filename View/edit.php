@@ -7,6 +7,10 @@
     <p><button type="button" onclick="window.location='<?=ROOT_URL?>?p=admin&amp;a=add'" class="btn">Ajoutez votre premier article!</button></p>
   <?php else: ?>
   <h1>Edition</h1>
+  <a href="<?=ROOT_URL?>?p=admin&amp;a=add"><button class="btn light-blue">Ajouter un article</button></a>
+  <br>
+  <br>
+  <hr>
 
   <table class="striped responsive-table">
     <thead>
@@ -23,9 +27,7 @@
           <td><?= $oPost->title ?></td>
           <td>Le <?= date('d/m/Y à H:i', strtotime($oPost->createdDate)); ?></td>
           <td>
-            <a href="<?=ROOT_URL?>?p=admin&amp;a=editPost&amp;id=<?=$oPost->id?>"><button class="btn light-blue">Modifier</button></a>
-            <a href="<?=ROOT_URL?>?p=admin&amp;a=delete&amp;id=<?=$oPost->id?>"><button class="btn light-blue">Supprimer</button></a>
-            </form>
+            <?php require 'inc/control_buttons.php' ?>
           </td>
         </tr>
       <?php endforeach ?>
