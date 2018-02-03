@@ -13,7 +13,7 @@
 					<li class="<?php echo ($_GET['a']=="chapters")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=blog&amp;a=chapters">Chapitres</a></li>
 
 					<?php if (!empty($_SESSION['is_logged'])): ?>
-
+					<li class="<?php echo ($_GET['a']=="edit")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=admin&amp;a=edit"><i class="material-icons">edit</i></a></li>
 					<li><a href="<?=ROOT_URL?>?p=admin&amp;a=logout">Déconnexion</a></li>
 					<?php endif ?>
 				</ul>
