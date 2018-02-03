@@ -73,4 +73,20 @@ class Blog
     $this->oUtil->getView('chapters');
   }
 
+  /***** For Admin (Back end) *****/
+  protected function isLogged()
+  {
+    return !empty($_SESSION['is_logged']);
+  }
+
+  public function all()
+    {
+      if (!$this->isLogged()) exit;
+
+      $this->oUtil->oPosts = $this->oModel->getAll();
+
+      $this->oUtil->getView('list');
+    }
+
+
 }
