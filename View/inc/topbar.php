@@ -11,6 +11,11 @@
 				<ul class="right hide-on-med-and-down">
 					<li class="<?php echo ($_GET['a']=="index")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=blog&amp;a=index">Accueil</a></li>
 					<li class="<?php echo ($_GET['a']=="chapters")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=blog&amp;a=chapters">Chapitres</a></li>
+
+					<?php if (!empty($_SESSION['is_logged'])): ?>
+
+					<li><a href="<?=ROOT_URL?>?p=admin&amp;a=logout">Déconnexion</a></li>
+					<?php endif ?>
 				</ul>
 
 				<ul class="side-nav" id="mobile-menu">
