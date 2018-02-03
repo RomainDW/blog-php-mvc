@@ -8,7 +8,7 @@ if (empty($_GET['a'])) {
 
 class Blog
 {
-  const MAX_POSTS = 5;
+  const MAX_POSTS = 2;
 
   protected $oUtil, $oModel;
   private $_iId;
@@ -72,7 +72,7 @@ class Blog
 
   public function chapters()
   {
-    $this->oUtil->oChapters = $this->oModel->getAll();
+    $this->oUtil->oPosts = $this->oModel->getAll();
 
     $this->oUtil->getView('chapters');
   }
