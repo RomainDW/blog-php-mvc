@@ -46,6 +46,10 @@ class Blog
 
   public function post()
   {
+    if(empty($_GET['id']))
+    {
+      header('Location: ?p=blog&a=index');
+    }
     $this->oUtil->oPost = $this->oModel->getById($this->_iId); // Récupère les données du post
 	  $this->oUtil->oComments = $this->oModel->getComments();
 
@@ -78,15 +82,4 @@ class Blog
   {
     return !empty($_SESSION['is_logged']);
   }
-
-  public function all()
-    {
-      if (!$this->isLogged()) exit;
-
-      $this->oUtil->oPosts = $this->oModel->getAll();
-
-      $this->oUtil->getView('list');
-    }
-
-
 }
