@@ -5,7 +5,7 @@
 <!-- Article -->
 
 <?php if (empty($this->oPost)): ?>
-    <p class="error">The post can't be be found!</p>
+    <h1>cet article n'existe pas !</h1>
 <?php else: ?>
 
     <article>
