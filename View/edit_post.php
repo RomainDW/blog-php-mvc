@@ -7,7 +7,7 @@
   <?php if (empty($this->oPost)): ?>
       <p class="error">Cet article n'existe pas !</p>
   <?php else: ?>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
     	<div class="row">
 
     		<div class="input-field col s12">
@@ -20,9 +20,22 @@
     			<label for="content">Contenu de l'article</label>
     		</div>
 
-    		<div class="col s6 right-align">
+        <div class="col s12 left-align">
     			<br><br>
-    			<button type="submit" class="btn" name="edit_submit">Modifier l'article</button>
+          <div class="input-field file-field">
+    				<div class="btn light-blue">
+    					<span>Modifier l'image</span>
+    					<input type="file" name="image">
+    				</div>
+    				<div class="file-path-wrapper">
+    					<input type="text" class="file-path validate" readonly>
+    				</div>
+    			</div>
+    		</div>
+
+    		<div class="col s12 left-align">
+    			<br><br>
+    			<button type="submit" class="btn light-green" name="edit_submit">Confirmer</button>
     		</div>
     	</div>
     </form>
