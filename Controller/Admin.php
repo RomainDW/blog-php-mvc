@@ -72,6 +72,19 @@ class Admin extends Blog
         {
           $aData = array('post_id' => $_GET['id'], 'title' => $_POST['title'], 'body' => $_POST['body']);
           $this->oModel->update($aData);
+
+          if (!empty($_FILES['image']['name']))
+          {
+            $file = $_FILES['image']['name'];
+            $extensions = ['.png','.jpg','.jpeg','.gif','.PNG','.JPG','.JPEG','.GIF'];
+            $extension = strrchr($file, '.');
+            $id = $_GET['id'];
+            if(!in_array($extension,$extensions)){
+              $this->oUtil->sErrMsg = "Cette image n'est pas valable";
+            }
+            $this->oModel->updateImg($_FILES['image']['name'], $_GET['id'], $_FILES['image']['tmp_name']);
+          }
+
           $this->oUtil->sSuccMsg = 'L\'article a bien été mis à jour !';
 
         }
@@ -85,7 +98,8 @@ class Admin extends Blog
 
     public function delete()
     {
-      if (!$this->isLogged()) exit;
+      if (!$this->isLogged())
+      header('Location: ?p=blog&a=index');
 
       $this->oModel->delete($_GET['id']);
       header('Location: ?p=admin&a=edit');
