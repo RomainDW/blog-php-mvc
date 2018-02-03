@@ -61,4 +61,21 @@ class Blog
     $oStmt->bindValue(':body', $aData['body']);
     return $oStmt->execute();
   }
+
+  public function add(array $aData)
+  {
+    $oStmt = $this->oDb->prepare('INSERT INTO Posts (title, body, createdDate) VALUES(:title, :body, :created_date)');
+    return $oStmt->execute($aData);
+  }
+
+  public function postImg($tmp_name, $extension){
+    $i = [
+      'id'     => $this->oDb->lastInsertId(),
+      'image'  => $this->oDb->lastInsertId().$extension
+    ];
+
+    $oStmt = $this->oDb->prepare('UPDATE Posts SET image = :image WHERE id = :id');
+    move_uploaded_file($tmp_name,"static/img/posts/".$i['image']);
+    return $oStmt->execute($i);
+  }
 }
