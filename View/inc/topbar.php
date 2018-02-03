@@ -1,7 +1,9 @@
-<div class="navbar-fixed">
+
+
 	<nav class="light-blue">
 		<div class="container">
 			<div class="nav-wrapper">
+
 				<a href="<?=ROOT_URL?>?p=blog&amp;a=index" class="brand-logo">Billet simple pour l'Alaska</a>
 
 				<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -19,4 +21,3 @@
 			</div>
 		</div>
 	</nav>
-</div>
