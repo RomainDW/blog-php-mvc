@@ -12,7 +12,7 @@
         <time datetime="<?=$this->oPost->createdDate?>" pubdate="pubdate"></time>
 
         <h1><?=htmlspecialchars($this->oPost->title)?></h1>
-        <p><?=nl2br(htmlspecialchars($this->oPost->body))?></p>
+        <p><?=nl2br($this->oPost->body)?></p>
 	</article>
 	<hr>
 	<p><em>Posté le <?=date('d/m/Y à H:i', strtotime($this->oPost->createdDate));?></em></p>
