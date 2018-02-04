@@ -12,8 +12,9 @@
 		</div>
 
 		<div class="input-field col s12">
-			<textarea name="body" id="body" class="materialize-textarea" required="required"></textarea>
-			<label for="body">Contenu de l'article</label>
+      <label for="editable">Contenu de l'article</label>
+      <br><br>
+			<textarea name="body" id="editable"></textarea>
 		</div>
 
 		<div class="col s12">
