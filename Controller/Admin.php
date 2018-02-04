@@ -33,7 +33,7 @@ class Admin extends Blog
     public function logout()
     {
         if (!$this->isLogged())
-            exit;
+            header('Location: ?p=blog&a=index');
 
         // Si il y a une session, la détruit pour déconnecter l'admin
         if (!empty($_SESSION))
@@ -70,6 +70,9 @@ class Admin extends Blog
         }
         else
         {
+          $this->oUtil->getModel('Admin');
+          $this->oModel = new \BlogPhp\Model\Admin;
+
           $aData = array('post_id' => $_GET['id'], 'title' => $_POST['title'], 'body' => $_POST['body']);
           $this->oModel->update($aData);
 
@@ -101,7 +104,12 @@ class Admin extends Blog
       if (!$this->isLogged())
       header('Location: ?p=blog&a=index');
 
-      $this->oModel->delete($_GET['id']);
+      $this->oUtil->getModel('Admin');
+      $this->oModel = new \BlogPhp\Model\Admin;
+
+      $this->oModel->deleteComments($_GET['id']); // supprime les commentaires du post
+      $this->oModel->delete($_GET['id']); // supprime le post
+
       header('Location: ?p=admin&a=edit');
     }
 
@@ -118,6 +126,9 @@ class Admin extends Blog
           }
           else
           {
+            $this->oUtil->getModel('Admin');
+            $this->oModel = new \BlogPhp\Model\Admin;
+
             $aData = array('title' => $_POST['title'], 'body' => $_POST['body'], 'created_date' => date('Y-m-d H:i:s'));
             $this->oModel->add($aData);
 
