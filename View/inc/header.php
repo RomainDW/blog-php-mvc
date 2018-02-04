@@ -18,3 +18,31 @@
       <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
       <script type="text/javascript" src="<?=ROOT_URL?>static/js/materialize.js"></script>
       <script type="text/javascript" src="<?=ROOT_URL?>static/js/script.js"></script>
+
+      <script src="<?=ROOT_URL?>static/js/tinymce/tinymce.min.js"></script>
+      <script>
+        tinymce.init({
+          selector:'#editable',
+          branding: false,
+          height: 500,
+          menubar: false,
+          plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+            "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+          ],
+          toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+          toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code | caption",
+          image_caption: true,
+          image_advtab: true ,
+
+          external_filemanager_path:"<?=ROOT_URL?>static/filemanager/",
+          filemanager_title:"Responsive Filemanager" ,
+          external_plugins: { "filemanager" : "<?=ROOT_URL?>static/filemanager/plugin.min.js"},
+          visualblocks_default_state: true ,
+
+          style_formats_autohide: true,
+          style_formats_merge: true,
+        });
+
+      </script>
