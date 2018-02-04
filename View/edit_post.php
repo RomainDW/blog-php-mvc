@@ -16,8 +16,9 @@
     		</div>
 
     		<div class="input-field col s12">
-    			<textarea name="body" id="body" class="materialize-textarea" required="required"><?=htmlspecialchars($this->oPost->body)?></textarea>
-    			<label for="content">Contenu de l'article</label>
+          <label for="editable">Contenu de l'article</label>
+          <br>
+    			<textarea name="body" id="editable" class="materialize-textarea"><?=$this->oPost->body?></textarea>
     		</div>
 
         <div class="col s12 left-align">
