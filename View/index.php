@@ -27,7 +27,7 @@
             </div>
             <div class="card-reveal">
     					<span class="card-title grey-text text-darken-4"><?= $oPost->title ?><i class="material-icons right">close</i></span>
-    					<p><?= nl2br(htmlspecialchars(mb_strimwidth($oPost->body, 0, 1200, '...'))) ?>...</p>
+    					<p><?= preg_replace("/<img[^>]+\>/i", "", nl2br(mb_strimwidth($oPost->body, 0, 800, '...'))); ?></p>
     				</div>
           </div>
         </div>
