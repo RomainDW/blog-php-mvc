@@ -45,4 +45,32 @@ class Blog
     $oStmt = $this->oDb->query('SELECT * FROM Posts ORDER BY createdDate DESC');
     return $oStmt->fetchAll(\PDO::FETCH_OBJ);
   }
+
+  public function isAdmin($sEmail)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Admins WHERE email = :email LIMIT 1');
+    $oStmt->bindValue(':email', $sEmail, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->fetch(\PDO::FETCH_OBJ);
+  }
+
+  public function login($sEmail, $sPassword)
+  {
+    $a = [
+      'email' 	  => $sEmail,
+			'password' 	=> sha1($sPassword)
+    ];
+    $sSql = "SELECT * FROM Admins WHERE email = :email AND password = :password";
+    $oStmt = $this->oDb->prepare($sSql);
+    $oStmt->execute($a);
+    $exist = $oStmt->rowCount($sSql);
+
+    return $exist;
+  }
+
+  public function addUser($aData)
+  {
+    $oStmt = $this->oDb->prepare('INSERT INTO Admins (email, pseudo, password) VALUES(:email, :pseudo, :password)');
+    return $oStmt->execute($aData);
+  }
 }
