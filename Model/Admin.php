@@ -4,16 +4,6 @@ namespace BlogPhp\Model;
 
 class Admin extends Blog
 {
-    public function login($sEmail)
-    {
-        $oStmt = $this->oDb->prepare('SELECT email, password FROM Admins WHERE email = :email LIMIT 1');
-        $oStmt->bindValue(':email', $sEmail, \PDO::PARAM_STR);
-        $oStmt->execute();
-        $oRow = $oStmt->fetch(\PDO::FETCH_OBJ);
-
-        return @$oRow->password;
-    }
-
     public function update(array $aData)
     {
       $oStmt = $this->oDb->prepare('UPDATE Posts SET title = :title, body = :body WHERE id = :postId LIMIT 1');
@@ -64,4 +54,13 @@ class Admin extends Blog
       move_uploaded_file($tmp_name,"static/img/posts/".$i['image']);
       return $oStmt->execute($i);
     }
+
+    public function deleteComment($iId)
+    {
+      $oStmt = $this->oDb->prepare('DELETE FROM comments WHERE id = :id');
+      $oStmt->bindParam(':id', $iId, \PDO::PARAM_INT);
+      return $oStmt->execute();
+    }
+
+
 }
