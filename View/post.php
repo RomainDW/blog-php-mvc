@@ -24,11 +24,17 @@
 	<?php if (empty($this->oComments)): ?>
 	<p class="bold">Aucun commentaire n'a été publié... Soyez le premier!</p>
 	<?php else: ?>
+
 	<?php foreach ($this->oComments as $oComment): ?>
     <blockquote id="blockquote">
       <strong><?= $oComment->name ?> <em>(Le <?= date('d/m/Y', strtotime($oComment->date)) ?>)</em></strong>
       <p><?= nl2br($oComment->comment); ?></p>
     </blockquote>
+    <?php if (!empty($_SESSION['is_admin'])): ?>
+      <a href="<?=ROOT_URL?>?p=admin&amp;a=deleteComment&amp;id=<?=$oComment->id?>&amp;postid=<?=$this->oPost->id?>"><button class="btn red">Supprimer</button></a>
+    <?php endif ?>
+    
+
 	<?php endforeach ?>
 	<?php endif ?>
   <br>
@@ -36,15 +42,14 @@
   <br>
 
 <!-- Formulaire -->
-
+  <?php if(empty($_SESSION['is_logged']) && empty($_SESSION['is_admin'])): ?>
+  <a href="<?=ROOT_URL?>?p=blog&amp;a=login"><button class="btn">Se connecter pour commenter</button></a>
+  <br><br>
+  <?php else: ?>
   <h4>Commenter :</h4>
 	<?php require 'inc/msg.php' ?>
 	<form method="post">
 		<div class="row">
-			<div class="input-field col s12 m6">
-				<input type="text" name="name" id="name">
-				<label for="name">Nom</label>
-			</div>
 			<div class="input-field col s12">
 				<textarea name="comment" id="comment" class="materialize-textarea"></textarea>
 				<label for="comment">Commentaire</label>
@@ -56,6 +61,6 @@
 			</div>
 		</div>
 	</form>
-
+  <?php endif ?>
 <?php endif ?>
 </div>
