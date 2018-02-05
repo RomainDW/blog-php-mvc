@@ -33,5 +33,10 @@
         </div>
       <?php endforeach ?>
     </div>
+    <pre>
+    <?php
+    var_dump($_SESSION);
+    ?>
+    </pre>
   </div>
 <?php endif ?>
