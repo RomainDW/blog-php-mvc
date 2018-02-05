@@ -10,7 +10,7 @@ require_once __DIR__ . '/Pattern/Singleton.trait.php';
 
 class Loader
 {
-    use Singleton; // Grace au trait, on ne duplique pas les paternes de code
+    use Singleton; // Grace au trait, on ne duplique pas le code
 
     public function init()
     {

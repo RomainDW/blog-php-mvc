@@ -10,7 +10,7 @@ class Router
         $sNamespace = 'BlogPhp\Controller\\';
         $sDefCtrl = $sNamespace . 'Blog';
         $sCtrlPath = ROOT_PATH . 'Controller/';
-        $sCtrl = ucfirst($aParams['ctrl']);
+        $sCtrl = ucfirst($aParams['ctrl']); // ucfirst — Met le premier caractère en majuscule
 
         if (is_file($sCtrlPath . $sCtrl . '.php'))
         {
@@ -20,12 +20,12 @@ class Router
             // La classe ReflectionClass rapporte des informations sur une classe.
             // La classe ReflectionMethod rapporte des informations sur une méthode.
             // call_user_func : Appelle une fonction de rappel callback fournie par le paramètre callback où les autres arguments seront passés en paramètre.
-            if ((new \ReflectionClass($oCtrl))->hasMethod($aParams['act']) && (new \ReflectionMethod($oCtrl, $aParams['act']))->isPublic())
-                call_user_func(array($oCtrl, $aParams['act']));
+            if ((new \ReflectionClass($oCtrl))->hasMethod($aParams['act']) && (new \ReflectionMethod($oCtrl, $aParams['act']))->isPublic())// vérifie si la méthode de act est définit et public
+                call_user_func(array($oCtrl, $aParams['act'])); // execute la méthode demandé par a='méthode demandé'
             else
                 call_user_func(array($oCtrl, 'notFound'));
         }
-        else
+        else // si le controller n'est pas trouvé alors renvoie a la page not found
         {
             call_user_func(array(new $sDefCtrl, 'notFound'));
         }
