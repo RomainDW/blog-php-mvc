@@ -6,7 +6,7 @@
   		<div class="card-panel">
   			<div class="row">
   				<div class="col s6 offset-s3">
-  					<img src="static/img/admin.png" alt="Administrator" width="100%">
+  					<img src="static/img/admin.png" alt="connexion" width="100%">
   				</div>
   			</div>
 
@@ -36,6 +36,9 @@
   			</form>
 
   		</div>
+      <center>
+        <a href="<?=ROOT_URL?>?p=blog&amp;a=registration">Pas encore inscrit ?</a>
+      </center>
   	</div>
   </div>
 </div>
