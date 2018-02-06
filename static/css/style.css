@@ -1,0 +1,26 @@
+body
+{
+  background-color: #ECEFF1;
+}
+
+.signal-btn:hover, .is_signaled
+{
+  background-color: #8BC34A !important;
+  transition: background 0.3s;
+}
+
+.vote-form
+{
+  display: inline-block;
+}
+
+
+/* RESPONSIVE */
+
+@media all and (max-width: 1300px)
+{
+  nav .brand-logo
+  {
+    
+  }
+}
