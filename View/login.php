@@ -12,7 +12,9 @@
 
   			<h4 class="center-align">Se connecter</h4>
 
-        <?php require 'inc/msg.php' ?>
+        <center>
+          <?php require 'inc/msg.php' ?>
+        </center>
 
   			<form method="post">
   				<div class="row">
