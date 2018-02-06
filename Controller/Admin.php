@@ -64,6 +64,7 @@ class Admin extends Blog
       $this->oModel = new \BlogPhp\Model\Admin;
 
       $this->oModel->deleteComments($_GET['id']); // supprime les commentaires du post
+      $this->oModel->deleteVotes($_GET['id']);// supprime les votes des commentaires du post
       $this->oModel->delete($_GET['id']); // supprime le post
 
       header('Location: ?p=admin&a=edit');
@@ -117,7 +118,86 @@ class Admin extends Blog
 
       $iId = $_GET['id'];
       $this->oModel->deleteComment($iId); // supprime le commentaire
+      $this->oModel->deleteVote($iId); // supprime les signalements du commentaire
 
       header("Location: ?p=blog&a=post&id=$oPost->id");
     }
+
+    public function getColor($aTable,$sColors)
+    {
+      if(isset($sColors[$aTable])){
+  			return $sColors[$aTable];
+  		}else {
+  			return "orange";
+  		}
+    }
+
+    public function dashboard()
+    {
+      if (!$this->isLogged())
+      header('Location: ?p=blog&a=index');
+
+      $this->oUtil->getModel('Admin');
+      $this->oModel = new \BlogPhp\Model\Admin;
+
+      $tables = [
+      	'Publications' 	      	 => 'Posts',
+      	'Commentaires' 	  	     => 'comments',
+      	'Utilisateurs' 	         => 'Admins',
+        'Signalements en cours'  => 'Votes'
+      ];
+
+      $colors = [
+      	'Posts'				           => 'green',
+      	'comments' 		  	       => 'brown',
+      	'Admins' 			           => 'blue',
+        'Votes'                  => 'red'
+      ];
+
+      $this->oUtil->aColors = array();
+      $this->oUtil->aInTable = array();
+      $this->oUtil->aTableName = array();
+
+
+
+      foreach ($tables as $table_name => $table)
+      {
+        $this->oUtil->aColors[] = $this->getColor($table,$colors);
+        $this->oUtil->aInTable[] = $this->oModel->inTable($table);
+        $this->oUtil->aTableName[] = $table_name;
+      }
+
+      $this->oUtil->length = count($this->oUtil->aTableName);
+
+      $this->oUtil->oComments = $this->oModel->getCommentsUnseen();
+
+      // $this->oUtil->sYellow = '';
+
+      // if ($this->oModel->getSignal())
+      // {
+      //   $this->oUtil->sYellow = 'yellow';
+      // }
+
+      $this->oUtil->getView('dashboard');
+    }
+
+    public function see_comment()
+    {
+      $this->oUtil->getModel('Admin');
+      $this->oModel = new \BlogPhp\Model\Admin;
+
+      $this->oModel->see_comment();
+    }
+
+    public function delete_comment()
+    {
+      $this->oUtil->getModel('Admin');
+      $this->oModel = new \BlogPhp\Model\Admin;
+
+      $this->oModel->delete_comment();
+      $this->oModel->deleteVotes($_GET['id']);
+    }
+
+
+
 }
