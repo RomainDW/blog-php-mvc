@@ -73,4 +73,76 @@ class Blog
     $oStmt = $this->oDb->prepare('INSERT INTO Admins (email, pseudo, password) VALUES(:email, :pseudo, :password)');
     return $oStmt->execute($aData);
   }
+
+  public function signalComment($aData)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM comments WHERE id = :comment_id');
+    $oStmt->bindValue(':comment_id', $aData['comment_id'], \PDO::PARAM_INT);
+    $oStmt->execute();
+
+    if ($oStmt->rowCount() > 0)
+    {
+      $oStmt = $this->oDb->prepare('INSERT INTO Votes (comment_id, user_id, post_id, vote) VALUES(:comment_id, :user_id, :post_id, 1) ');
+      $oStmt->execute($aData);
+      return true;
+    }
+    else
+    {
+      throw new \Exception("Impossible de voter pour un commentaire qui n'existe pas");
+
+    }
+  }
+
+  public function signalExist($aData)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Votes WHERE comment_id = :comment_id AND user_id = :user_id');
+    $oStmt->bindValue(':comment_id', $aData['comment_id'], \PDO::PARAM_INT);
+    $oStmt->bindValue(':user_id', $aData['user_id'], \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->rowCount();
+  }
+
+  public function userVotes($user)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Votes WHERE user_id = :user_id');
+    $oStmt->bindValue(':user_id', $user, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+  }
+
+  public function deleteUserVote($aData)
+  {
+    $oStmt = $this->oDb->prepare('DELETE FROM Votes WHERE comment_id = :comment_id AND user_id = :user_id');
+    $oStmt->bindParam(':comment_id', $aData['comment_id'], \PDO::PARAM_INT);
+    $oStmt->bindParam(':user_id', $aData['user_id'], \PDO::PARAM_STR);
+    return $oStmt->execute();
+  }
+
+  public function pseudoTaken($pseudo)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Admins WHERE pseudo = :pseudo');
+    $oStmt->bindParam(':pseudo', $pseudo, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->rowCount();
+  }
+
+  public function emailTaken($sEmail)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Admins WHERE email = :email');
+    $oStmt->bindParam(':email', $sEmail, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->rowCount();
+  }
+
+  public function substrSignal($id)
+  {
+    $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals - '1' WHERE id='$id'");
+  }
+
+  public function addSignal($id)
+  {
+    $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals + '1' WHERE id='$id'");
+  }
+
+
 }
