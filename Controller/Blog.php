@@ -68,6 +68,10 @@ class Blog
           $this->oUtil->sSuccMsg = 'Le Commentaire a été posté !';
         }
     }
+
+		$this->oUtil->oUserVotes = $this->oModel->userVotes(current($_SESSION));
+		$this->oUtil->color = 'is_signaled';
+
     $this->oUtil->getView('post');
   }
 
@@ -81,6 +85,11 @@ class Blog
   protected function isLogged()
   {
     return !empty($_SESSION['is_admin']); // si admin est connecté return true
+  }
+
+	protected function userIsLogged()
+  {
+    return !empty($_SESSION['is_logged']); // si admin est connecté return true
   }
 
 	public function login()
@@ -162,6 +171,16 @@ class Blog
 				$this->oUtil->sErrMsg = "Les mots de passe sont différents";
 			}
 
+			elseif ($this->oModel->emailTaken($sEmail))
+			{
+				$this->oUtil->sErrMsg = "Cette adresse email est déjà utilisée";
+			}
+
+			elseif ($this->oModel->pseudoTaken($sPseudo))
+			{
+				$this->oUtil->sErrMsg = "Ce pseudo est déjà utilisé";
+			}
+
 			else
 			{
 				$aData = array('email' => $sEmail, 'pseudo' => $sPseudo, 'password' => sha1($sPassword));
@@ -175,9 +194,38 @@ class Blog
 		$this->oUtil->getView('registration');
 	}
 
-	public function signal()
+	public function signal ()
 	{
+		if ($this->userIsLogged())
+			header('Location: ?p=blog&a=index');
 
-		
+		if ($_SERVER['REQUEST_METHOD'] != 'POST')
+		{
+			http_response_code(403);
+			die();
+		}
+
+		if ($_GET['vote'] == 1)
+		{
+			$aData = array('comment_id' => $_GET['commentId'], 'user_id' => current($_SESSION), 'post_id' =>$_GET['postid']);
+
+			if ($this->oModel->signalExist($aData) > 0)
+			{
+				$this->oModel->deleteUserVote($aData);
+				$this->oModel->substrSignal($_GET['commentId']);
+			}
+			else
+			{
+				$this->oModel->signalComment($aData);
+				$this->oModel->addSignal($_GET['commentId']);
+			}
+
+		}
+		else
+		{
+			$this->oUtil->getView('not_found');
+		}
+		header('Location: ' . ROOT_URL . '?p=blog&a=post&id=' . $_GET['postid'] . '#comment_ink');
+
 	}
 }
