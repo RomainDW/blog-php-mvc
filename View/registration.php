@@ -11,7 +11,9 @@
           </div>
         </div>
         <h4 class="center-align">Inscription</h4>
-        <?php require 'inc/msg.php' ?>
+        <center>
+          <?php require 'inc/msg.php' ?>
+        </center>
         <form method="post">
           <div class="row">
             <div class="input-field col s12">
@@ -39,6 +41,9 @@
           </div>
         </form>
       </div>
+      <center>
+        <a href="<?=ROOT_URL?>?p=blog&amp;a=login">Déjà inscrit ?</a>
+      </center>
     </div>
   </div>
 </div>
