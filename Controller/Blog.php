@@ -218,6 +218,7 @@ class Blog
 			{
 				$this->oModel->signalComment($aData);
 				$this->oModel->addSignal($_GET['commentId']);
+				$this->oModel->setUnseen($_GET['commentId']);
 			}
 
 		}
