@@ -171,13 +171,6 @@ class Admin extends Blog
 
       $this->oUtil->oComments = $this->oModel->getCommentsUnseen();
 
-      // $this->oUtil->sYellow = '';
-
-      // if ($this->oModel->getSignal())
-      // {
-      //   $this->oUtil->sYellow = 'yellow';
-      // }
-
       $this->oUtil->getView('dashboard');
     }
 
