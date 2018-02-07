@@ -144,5 +144,10 @@ class Blog
     $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals + '1' WHERE id='$id'");
   }
 
+  public function setUnseen($id)
+  {
+    $oStmt = $this->oDb->exec("UPDATE comments SET seen = '0' WHERE id='$id'");
+  }
+
 
 }
