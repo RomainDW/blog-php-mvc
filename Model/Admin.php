@@ -94,6 +94,7 @@ class Admin extends Blog
         JOIN posts
         ON comments.post_id = Posts.id
         WHERE comments.seen = '0'
+        AND comments.signals = '0'
         ORDER BY comments.date ASC
       ");
 
@@ -108,13 +109,48 @@ class Admin extends Blog
 
     public function see_comment()
     {
-      $oStmt = $this->oDb->exec("UPDATE comments SET seen='1' WHERE id='{$_POST['id']}'");
+      $oStmt = $this->oDb->exec("UPDATE comments SET seen = '1' WHERE id='{$_POST['id']}'");
+      $oStmt = $this->oDb->exec("DELETE FROM Votes WHERE comment_id = {$_POST['id']}");
+      $oStmt = $this->oDb->exec("UPDATE comments SET signals = '0' WHERE id='{$_POST['id']}'");
     }
 
     public function delete_comment()
     {
       $oStmt = $this->oDb->exec("DELETE FROM comments WHERE id = {$_POST['id']}");
       $oStmt = $this->oDb->exec("DELETE FROM Votes WHERE comment_id = {$_POST['id']}");
+    }
+
+    public function getSignaledComments()
+    {
+      $oStmt = $this->oDb->query("
+        SELECT  comments.id,
+                comments.name,
+                comments.comment,
+                comments.post_id,
+                comments.date,
+                comments.signals,
+                Posts.title
+        FROM comments
+        JOIN posts
+        ON comments.post_id = Posts.id
+        WHERE comments.seen = '0'
+        AND comments.signals > '0'
+        ORDER BY comments.signals
+      ");
+
+      $results = [];
+
+      while($rows = $oStmt->fetchObject())
+      {
+        $results[] = $rows;
+      }
+      return $results;
+    }
+
+    public function getNbrSignals()
+    {
+      $oStmt = $this->oDb->query("SELECT COUNT(id) FROM Votes");
+      return $oStmt->fetch();
     }
 
 }
