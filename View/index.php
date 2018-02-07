@@ -35,7 +35,7 @@
     </div>
     <pre>
     <?php
-    var_dump($_SESSION['is_logged']);
+    var_dump(current($_SESSION));
     ?>
     </pre>
   </div>
