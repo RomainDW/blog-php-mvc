@@ -35,7 +35,7 @@
       <a href="<?=ROOT_URL?>?p=admin&amp;a=deleteComment&amp;id=<?=$oComment->id?>&amp;postid=<?=$this->oPost->id?>"><button class="btn red waves-effect waves-light">Supprimer</button></a>
     <?php endif ?>
 
-    <?php if(!empty($_SESSION['is_logged'])): ?>
+    <?php if(!empty($_SESSION['is_user'])): ?>
       <?php $aIsSignaled = array(); ?>
       <?php foreach($this->oUserVotes as $key => $userVote): ?>
         <?php $aIsSignaled[] = $userVote->comment_id; ?>
@@ -55,7 +55,7 @@
   <br>
 
 <!-- Formulaire -->
-  <?php if(empty($_SESSION['is_logged']) && empty($_SESSION['is_admin'])): ?>
+  <?php if(empty($_SESSION['is_user']) && empty($_SESSION['is_admin'])): ?>
   <a href="<?=ROOT_URL?>?p=blog&amp;a=login"><button class="btn waves-effect waves-light">Se connecter pour commenter</button></a>
   <br><br>
   <?php else: ?>

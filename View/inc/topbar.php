@@ -13,7 +13,7 @@
 					<li class="<?php echo ($_GET['a']=="index")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=blog&amp;a=index">Accueil</a></li>
 					<li class="<?php echo ($_GET['a']=="chapters")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=blog&amp;a=chapters">Chapitres</a></li>
 
-					<?php if (empty($_SESSION['is_admin']) && empty($_SESSION['is_logged'])): ?>
+					<?php if (empty($_SESSION['is_admin']) && empty($_SESSION['is_user'])): ?>
 					<li><a href="<?=ROOT_URL?>?p=blog&amp;a=login" class="btn green waves-effect waves-light">Connexion<i class="material-icons right">lock_open</i></a></li>
 					<?php endif ?>
 
@@ -25,7 +25,7 @@
 					<li class="<?php echo ($_GET['a']=="edit")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=admin&amp;a=edit"><i class="material-icons">edit</i></a></li>
 					<?php endif ?>
 
-					<?php if (!empty($_SESSION['is_admin']) || !empty($_SESSION['is_logged'])): ?>
+					<?php if (!empty($_SESSION['is_admin']) || !empty($_SESSION['is_user'])): ?>
 					<li><a href="<?=ROOT_URL?>?p=blog&amp;a=logout" class="btn red waves-effect waves-light">Déconnexion<i class="material-icons right">lock_outline</i></a></li>
 					<?php endif ?>
 				</ul>
@@ -35,7 +35,7 @@
 					<li class="<?php echo ($_GET['a']=="index")?"active" : ""; ?>"><a href="<?=ROOT_URL?>">Accueil</a></li>
 					<li class="<?php echo ($_GET['a']=="chapters")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=blog&amp;a=chapters">Chapitres</a></li>
 
-					<?php if (empty($_SESSION['is_admin']) || empty($_SESSION['is_logged'])): ?>
+					<?php if (empty($_SESSION['is_admin']) || empty($_SESSION['is_user'])): ?>
 					<li class="<?php echo ($_GET['a']=="login")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=blog&amp;a=login">Connexion</a></li>
 					<?php endif ?>
 
@@ -47,7 +47,7 @@
 					<li class="<?php echo ($_GET['a']=="edit")?"active" : ""; ?>"><a href="<?=ROOT_URL?>?p=admin&amp;a=edit">Edition</a></li>
 					<?php endif ?>
 
-					<?php if (!empty($_SESSION['is_admin']) || !empty($_SESSION['is_logged'])): ?>
+					<?php if (!empty($_SESSION['is_admin']) || !empty($_SESSION['is_user'])): ?>
 					<li><a href="<?=ROOT_URL?>?p=blog&amp;a=logout">Déconnexion</a></li>
 					<?php endif ?>
 				</ul>
