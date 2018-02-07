@@ -144,7 +144,7 @@ class Admin extends Blog
       	'Publications' 	      	 => 'Posts',
       	'Commentaires' 	  	     => 'comments',
       	'Utilisateurs' 	         => 'Admins',
-        'Signalements en cours'  => 'Votes'
+        'Signalements'           => 'Votes'
       ];
 
       $colors = [
@@ -171,11 +171,18 @@ class Admin extends Blog
 
       $this->oUtil->oComments = $this->oModel->getCommentsUnseen();
 
+      $this->oUtil->oSignaledComments = $this->oModel->getSignaledComments();
+
+      $this->oUtil->aNbrSignals = $this->oModel->getNbrSignals();
+
       $this->oUtil->getView('dashboard');
     }
 
     public function see_comment()
     {
+      if (!$this->isLogged())
+      header('Location: ?p=blog&a=index');
+
       $this->oUtil->getModel('Admin');
       $this->oModel = new \BlogPhp\Model\Admin;
 
@@ -184,6 +191,9 @@ class Admin extends Blog
 
     public function delete_comment()
     {
+      if (!$this->isLogged())
+      header('Location: ?p=blog&a=index');
+
       $this->oUtil->getModel('Admin');
       $this->oModel = new \BlogPhp\Model\Admin;
 
