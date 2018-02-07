@@ -89,7 +89,7 @@ class Blog
 
 	protected function userIsLogged()
   {
-    return !empty($_SESSION['is_logged']); // si admin est connecté return true
+    return !empty($_SESSION['is_user']); // si admin est connecté return true
   }
 
 	public function login()
@@ -121,7 +121,7 @@ class Blog
 					}
 					else
 					{
-						$_SESSION['is_logged'] = $oIsAdmin->pseudo; // user est connecté maintenant
+						$_SESSION['is_user'] = $oIsAdmin->pseudo; // user est connecté maintenant
 						header('Location: ' . ROOT_URL . '?p=blog&a=index');
 						exit;
 					}
