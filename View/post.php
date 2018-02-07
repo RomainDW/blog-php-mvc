@@ -64,7 +64,7 @@
 	<form method="post">
 		<div class="row">
 			<div class="input-field col s12">
-				<textarea name="comment" id="comment" class="materialize-textarea"></textarea>
+				<textarea name="comment" id="comment" class="materialize-textarea" maxlength="1200"></textarea>
 				<label for="comment">Commentaire</label>
 			</div>
 			<div class="col s12">
