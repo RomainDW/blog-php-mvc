@@ -26,7 +26,7 @@
 					<?php endif ?>
 
 					<?php if (!empty($_SESSION['is_admin']) || !empty($_SESSION['is_logged'])): ?>
-					<li><a href="<?=ROOT_URL?>?p=blog&amp;a=logout" class="btn red">Déconnexion<i class="material-icons right">lock_outline</i></a></li>
+					<li><a href="<?=ROOT_URL?>?p=blog&amp;a=logout" class="btn red waves-effect waves-light">Déconnexion<i class="material-icons right">lock_outline</i></a></li>
 					<?php endif ?>
 				</ul>
 

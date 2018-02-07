@@ -31,7 +31,7 @@
 
 		<div class="col s12 right-align">
 			<br><br>
-			<button class="btn" type="submit" name="add_submit">Publier</button>
+			<button class="btn waves-effect waves-light" type="submit" name="add_submit">Publier</button>
 		</div>
 
 	</div>

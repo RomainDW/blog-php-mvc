@@ -36,7 +36,7 @@
 
     		<div class="col s12 left-align">
     			<br><br>
-    			<button type="submit" class="btn light-green" name="edit_submit">Confirmer</button>
+    			<button type="submit" class="btn light-green waves-effect waves-light" name="edit_submit">Confirmer</button>
     		</div>
     	</div>
     </form>

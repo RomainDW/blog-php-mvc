@@ -32,7 +32,7 @@
       <p><?= nl2br($oComment->comment); ?></p>
     </blockquote>
     <?php if (!empty($_SESSION['is_admin'])): ?>
-      <a href="<?=ROOT_URL?>?p=admin&amp;a=deleteComment&amp;id=<?=$oComment->id?>&amp;postid=<?=$this->oPost->id?>"><button class="btn red">Supprimer</button></a>
+      <a href="<?=ROOT_URL?>?p=admin&amp;a=deleteComment&amp;id=<?=$oComment->id?>&amp;postid=<?=$this->oPost->id?>"><button class="btn red waves-effect waves-light">Supprimer</button></a>
     <?php endif ?>
 
     <?php if(!empty($_SESSION['is_logged'])): ?>
@@ -44,7 +44,7 @@
         <?php $this->color = '' ;?>
       <?php endif ?>
       <form class="vote-form" action="?p=blog&a=signal&postid=<?=$this->oPost->id?>&commentId=<?=$oComment->id?>&vote=1" method="POST">
-        <button class="btn red signal-btn <?= $this->color ?>" type="submit">Signaler</button>
+        <button class="btn red waves-effect waves-light signal-btn <?= $this->color ?>" type="submit">Signaler</button>
       </form>
     <?php endif ?>
 
@@ -56,7 +56,7 @@
 
 <!-- Formulaire -->
   <?php if(empty($_SESSION['is_logged']) && empty($_SESSION['is_admin'])): ?>
-  <a href="<?=ROOT_URL?>?p=blog&amp;a=login"><button class="btn">Se connecter pour commenter</button></a>
+  <a href="<?=ROOT_URL?>?p=blog&amp;a=login"><button class="btn waves-effect waves-light">Se connecter pour commenter</button></a>
   <br><br>
   <?php else: ?>
   <h4>Commenter :</h4>
@@ -68,7 +68,7 @@
 				<label for="comment">Commentaire</label>
 			</div>
 			<div class="col s12">
-        <button type="submit" name="submit_comment" class="btn waves-effect">
+        <button type="submit" name="submit_comment" class="btn waves-effect waves-light">
   				Commenter
   			</button>
 			</div>
