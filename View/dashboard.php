@@ -20,12 +20,12 @@
 
   <h4>Commentaires non lus</h4>
 
-  <table>
+  <table class="centered bordered ">
   	<thead>
   		<tr>
   			<th>Article</th>
-  			<th>Aperçu des commentaire</th>
-        <th>Signals</th>
+  			<th>Aperçu des commentaires</th>
+        <th>Signalements</th>
   			<th>Actions</th>
   		</tr>
   	</thead>
