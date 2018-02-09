@@ -29,11 +29,11 @@ class Blog
     $this->_iId = (int) (!empty($_GET['id']) ? $_GET['id'] : 0);
   }
 
-  /***** Front end *****/
-  // Page d'accueil
+
+  // On obtient seulement les X derniers posts puis on affiche index.php
   public function index()
   {
-      $this->oUtil->oPosts = $this->oModel->get(0, self::MAX_POSTS); // Obtient seulement les X derniers messages
+      $this->oUtil->oPosts = $this->oModel->get(0, self::MAX_POSTS);
 
       $this->oUtil->getView('index');
   }
@@ -44,6 +44,7 @@ class Blog
       $this->oUtil->getView('not_found');
   }
 
+	// Récupère les données du post, les commentaires associés puis affiche la page post.php
   public function post()
   {
     if(empty($_GET['id']))
@@ -51,7 +52,7 @@ class Blog
       header('Location: ?p=blog&a=index');
     }
 
-    $this->oUtil->oPost = $this->oModel->getById($this->_iId); // Récupère les données du post
+    $this->oUtil->oPost = $this->oModel->getById($this->_iId);
 	  $this->oUtil->oComments = $this->oModel->getComments();
 
   	if (isset($_POST['submit_comment']))
@@ -75,6 +76,7 @@ class Blog
     $this->oUtil->getView('post');
   }
 
+	// On obtient tous les posts puis on affiche la page chapters.php
   public function chapters()
   {
     $this->oUtil->oPosts = $this->oModel->getAll();
@@ -89,9 +91,10 @@ class Blog
 
 	protected function userIsLogged()
   {
-    return !empty($_SESSION['is_user']); // si admin est connecté return true
+    return !empty($_SESSION['is_user']); // si user est connecté return true
   }
 
+	// Affiche la page login.php puis suite à l'envoie du formulaire, on vérifie si l'email et le mdp correspondent, puis connecte en tant qu'admin ou user selon le mail.
 	public function login()
 	{
 			if ($this->isLogged())
@@ -149,6 +152,8 @@ class Blog
 		exit;
 	}
 
+	// Affiche la page registration.php
+	// Suite à l'envoie du formulaire, si il n'y a pas d'erreurs alors on enregistre le nouvel utilisateur pusi redirige vers la page login.php
 	public function registration()
 	{
 		if ($this->isLogged())
@@ -194,6 +199,7 @@ class Blog
 		$this->oUtil->getView('registration');
 	}
 
+	// Suite à l'envoie du formulaire, on insert dans la table Votes un signalement, si le signalement existe déja alors on le supprime
 	public function signal ()
 	{
 		if ($this->userIsLogged())

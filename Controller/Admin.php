@@ -4,6 +4,7 @@ namespace BlogPhp\Controller;
 
 class Admin extends Blog
 {
+    // Récupère les données de tous les posts puis affiche la page edit.php
     public function edit()
     {
       if (!$this->isLogged())
@@ -13,6 +14,8 @@ class Admin extends Blog
       $this->oUtil->getView('edit');
     }
 
+    // Suite à l'envoie du formulaire, on récupère les données saisies pour puis on update les données du post.
+    // Si on modifie l'image associée, on vérifie que l'extension existe (jpg, png ...)
     public function editPost()
     {
       if (!$this->isLogged())
@@ -55,6 +58,7 @@ class Admin extends Blog
       $this->oUtil->getView('edit_post');
     }
 
+    // On supprime le post ainsi que les commentaires associés à ce post et les signalements de ces commentaires
     public function delete()
     {
       if (!$this->isLogged())
@@ -70,6 +74,9 @@ class Admin extends Blog
       header('Location: ?p=admin&a=edit');
     }
 
+    // Affiche la page add_post.php
+    // Suite à l'envoie du formulaire, on récupère les données et on les insert dans la table post
+    // Si il n'y a pas d'image associée, alors l'image de base sera post.png
     public function add()
     {
       if (!$this->isLogged())
@@ -107,6 +114,7 @@ class Admin extends Blog
       $this->oUtil->getView('add_post');
     }
 
+    //On supprime le commentaire ainsi que les signalements associés
     public function deleteComment()
     {
       if (!$this->isLogged())
@@ -123,6 +131,7 @@ class Admin extends Blog
       header("Location: ?p=blog&a=post&id=$oPost->id");
     }
 
+    // On obtient la couleur associé à chaque table
     public function getColor($aTable,$sColors)
     {
       if(isset($sColors[$aTable])){
@@ -132,6 +141,9 @@ class Admin extends Blog
   		}
     }
 
+    // On affiche la page dashboard.php
+    // On définit les tables qui seront affichées sur la page ainsi que leur couleur
+    // On obtient les commentaires non-signalés, les commentaires signalés et le nombre de signalements
     public function dashboard()
     {
       if (!$this->isLogged())
@@ -178,6 +190,7 @@ class Admin extends Blog
       $this->oUtil->getView('dashboard');
     }
 
+    // On update le commentaire en mettant "vu"
     public function see_comment()
     {
       if (!$this->isLogged())
@@ -189,6 +202,7 @@ class Admin extends Blog
       $this->oModel->see_comment();
     }
 
+    // On supprime le commentaire ainsi que les signalements associés
     public function delete_comment()
     {
       if (!$this->isLogged())
