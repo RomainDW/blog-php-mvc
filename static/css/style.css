@@ -17,10 +17,9 @@ body
 
 /* RESPONSIVE */
 
-@media all and (max-width: 1300px)
-{
-  nav .brand-logo
-  {
-
+  @media all and (max-width: 482px){
+    nav .brand-logo
+    {
+      font-size: 1.3em;
+    }
   }
-}
