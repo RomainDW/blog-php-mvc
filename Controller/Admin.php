@@ -132,7 +132,7 @@ class Admin extends Blog
     }
 
     // On obtient la couleur associé à chaque table
-    public function getColor($aTable,$sColors)
+    private function getColor($aTable,$sColors)
     {
       if(isset($sColors[$aTable])){
   			return $sColors[$aTable];
