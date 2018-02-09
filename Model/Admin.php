@@ -91,7 +91,7 @@ class Admin extends Blog
                 comments.signals,
                 Posts.title
         FROM comments
-        JOIN posts
+        JOIN Posts
         ON comments.post_id = Posts.id
         WHERE comments.seen = '0'
         AND comments.signals = '0'
@@ -131,7 +131,7 @@ class Admin extends Blog
                 comments.signals,
                 Posts.title
         FROM comments
-        JOIN posts
+        JOIN Posts
         ON comments.post_id = Posts.id
         WHERE comments.seen = '0'
         AND comments.signals > '0'
