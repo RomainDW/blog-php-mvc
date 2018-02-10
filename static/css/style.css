@@ -17,9 +17,21 @@ body
 
 /* RESPONSIVE */
 
-  @media all and (max-width: 482px){
-    nav .brand-logo
-    {
-      font-size: 1.3em;
-    }
+@media all and (max-width: 785px){
+  .page-title
+  {
+    font-size: 2em;
   }
+}
+
+@media all and (max-width: 482px){
+  nav .brand-logo
+  {
+    font-size: 1.3em;
+  }
+
+  .page-title
+  {
+    font-size: 1.3em;
+  }
+}
