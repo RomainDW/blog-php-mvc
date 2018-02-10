@@ -7,7 +7,7 @@
         <h1>Il n'y a aucun article.</h1>
         <p><button type="button" onclick="window.location='<?=ROOT_URL?>?p=admin&amp;a=add'" class="btn waves-effect waves-light">Ajoutez votre premier article!</button></p>
     <?php else: ?>
-    <h1 class="">Billet simple pour l'Alaska</h1>
+    <h1 class="page-title">Billet simple pour l'Alaska</h1>
     <div class="row">
 
       <!-- ARTICLES -->
