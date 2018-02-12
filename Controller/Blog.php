@@ -54,6 +54,7 @@ class Blog
 
     $this->oUtil->oPost = $this->oModel->getById($this->_iId);
 	  $this->oUtil->oComments = $this->oModel->getComments();
+		$getUserId = $this->oModel->getUserId(current($_SESSION));
 
   	if (isset($_POST['submit_comment']))
     {
@@ -63,7 +64,7 @@ class Blog
         }
         else
         {
-          $aData = array('name' => current($_SESSION), 'comment' => htmlspecialchars($_POST['comment']), 'post_id' => $_GET['id']);
+          $aData = array('user_id' => $getUserId->id, 'comment' => htmlspecialchars($_POST['comment']), 'post_id' => $_GET['id']);
           $this->oModel->addComment($aData);
           ?> <script>window.location.replace('?p=blog&a=post&id=<?= $_GET['id'] ?>');</script> <?php
           $this->oUtil->sSuccMsg = 'Le Commentaire a été posté !';
@@ -71,7 +72,6 @@ class Blog
     }
 
 		$this->oUtil->oUserVotes = $this->oModel->userVotes(current($_SESSION));
-		$this->oUtil->color = 'is_signaled';
 
     $this->oUtil->getView('post');
   }
@@ -234,5 +234,10 @@ class Blog
 		}
 		header('Location: ' . ROOT_URL . '?p=blog&a=post&id=' . $_GET['postid'] . '#comment_ink');
 
+	}
+
+	public function legalNotice()
+	{
+    $this->oUtil->getView('legalNotice');
 	}
 }
