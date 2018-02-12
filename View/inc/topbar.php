@@ -1,5 +1,5 @@
 
-
+<header>
 	<nav class="light-blue">
 		<div class="container">
 			<div class="nav-wrapper">
@@ -55,3 +55,4 @@
 			</div>
 		</div>
 	</nav>
+</header>
