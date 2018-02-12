@@ -35,7 +35,7 @@
             <center>
                 <button type="submit" name="submit" class="btn waves-effect waves-light light-blue">
                 <i class="material-icons left">perm_identity</i>
-                Se connecter
+                Inscription
                 </button>
             </center>
           </div>
