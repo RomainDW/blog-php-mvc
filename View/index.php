@@ -1,7 +1,7 @@
 <?php require 'inc/header.php' ?>
 <?php require 'inc/topbar.php' ?>
 
-
+<main>
   <div class="container">
     <?php if (empty($this->oPosts)): ?>
         <h1>Il n'y a aucun article.</h1>
@@ -34,4 +34,6 @@
       <?php endforeach ?>
     </div>
   </div>
+</main>
 <?php endif ?>
+<?php require 'inc/footer.php' ?>
