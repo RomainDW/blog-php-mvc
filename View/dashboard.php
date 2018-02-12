@@ -49,7 +49,7 @@
       						<div class="modal" id="comment_<?= $comment->id ?>">
       							<div class="modal-content">
       								<h4><?= $comment->title ?></h4>
-      								<p>Commentaire posté par <strong><?= $comment->name.'</strong><br/>Le '.date('d/m/y à H:i', strtotime($comment->date)) ?></p>
+      								<p>Commentaire posté par <strong><?= $comment->pseudo.'</strong><br/>Le '.date('d/m/y à H:i', strtotime($comment->date)) ?></p>
       								<hr>
       								<p><?= nl2br($comment->comment) ?></p>
       							</div>
@@ -95,7 +95,7 @@
       						<div class="modal" id="comment_<?= $signaledComment->id ?>">
       							<div class="modal-content">
       								<h4><?= $signaledComment->title ?></h4>
-      								<p>Commentaire posté par <strong><?= $signaledComment->name.'</strong><br/>Le '.date('d/m/y à H:i', strtotime($signaledComment->date)) ?></p>
+      								<p>Commentaire posté par <strong><?= $signaledComment->pseudo.'</strong><br/>Le '.date('d/m/y à H:i', strtotime($signaledComment->date)) ?></p>
       								<hr>
       								<p><?= nl2br($signaledComment->comment) ?></p>
       							</div>
