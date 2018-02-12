@@ -84,15 +84,18 @@ class Admin extends Blog
     {
       $oStmt = $this->oDb->query("
         SELECT  comments.id,
-                comments.name,
+                comments.user_id,
                 comments.comment,
                 comments.post_id,
                 comments.date,
                 comments.signals,
-                Posts.title
+                Posts.title,
+                Users.pseudo
         FROM comments
         JOIN Posts
         ON comments.post_id = Posts.id
+        JOIN Users
+        ON comments.user_id = Users.id
         WHERE comments.seen = '0'
         AND comments.signals = '0'
         ORDER BY comments.date ASC
@@ -124,15 +127,18 @@ class Admin extends Blog
     {
       $oStmt = $this->oDb->query("
         SELECT  comments.id,
-                comments.name,
+                comments.user_id,
                 comments.comment,
                 comments.post_id,
                 comments.date,
                 comments.signals,
-                Posts.title
+                Posts.title,
+                Users.pseudo
         FROM comments
         JOIN Posts
         ON comments.post_id = Posts.id
+        JOIN Users
+        ON comments.user_id = Users.id
         WHERE comments.seen = '0'
         AND comments.signals > '0'
         ORDER BY comments.signals
