@@ -28,7 +28,7 @@
 	<?php foreach ($this->oComments as $oComment): ?>
 
     <blockquote id="blockquote">
-      <strong><?= $oComment->name ?> <em>(Le <?= date('d/m/Y', strtotime($oComment->date)) ?>)</em></strong>
+      <strong><?= $oComment->pseudo ?> <em>(Le <?= date('d/m/Y', strtotime($oComment->date)) ?>)</em></strong>
       <p><?= nl2br($oComment->comment); ?></p>
     </blockquote>
     <?php if (!empty($_SESSION['is_admin'])): ?>
@@ -36,15 +36,18 @@
     <?php endif ?>
 
     <?php if(!empty($_SESSION['is_user'])): ?>
+      <?php $color = 'is_signaled'; ?>
       <?php $aIsSignaled = array(); ?>
       <?php foreach($this->oUserVotes as $key => $userVote): ?>
         <?php $aIsSignaled[] = $userVote->comment_id; ?>
       <?php endforeach ?>
-      <?php if(!in_array($oComment->id ,$aIsSignaled)): ?>
-        <?php $this->color = '' ;?>
+      <?php if(in_array($oComment->id ,$aIsSignaled) == false): ?>
+        <?php $color = '' ;?>
       <?php endif ?>
+      <pre>
+      </pre>
       <form class="vote-form" action="?p=blog&a=signal&postid=<?=$this->oPost->id?>&commentId=<?=$oComment->id?>&vote=1" method="POST">
-        <button class="btn red waves-effect waves-light signal-btn <?= $this->color ?>" type="submit">Signaler</button>
+        <button class="btn red waves-effect waves-light signal-btn <?= $color ?>" type="submit">Signaler</button>
       </form>
     <?php endif ?>
 
