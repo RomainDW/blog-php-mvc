@@ -155,14 +155,14 @@ class Admin extends Blog
       $tables = [
       	'Publications' 	      	 => 'Posts',
       	'Commentaires' 	  	     => 'comments',
-      	'Utilisateurs' 	         => 'Admins',
+      	'Utilisateurs' 	         => 'Users',
         'Signalements'           => 'Votes'
       ];
 
       $colors = [
       	'Posts'				           => 'green',
       	'comments' 		  	       => 'brown',
-      	'Admins' 			           => 'blue',
+      	'Users' 			           => 'blue',
         'Votes'                  => 'red'
       ];
 
