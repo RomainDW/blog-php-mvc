@@ -63,7 +63,7 @@ class Blog
         }
         else
         {
-          $aData = array('name' => current($_SESSION), 'comment' => $_POST['comment'], 'post_id' => $_GET['id']);
+          $aData = array('name' => current($_SESSION), 'comment' => htmlspecialchars($_POST['comment']), 'post_id' => $_GET['id']);
           $this->oModel->addComment($aData);
           ?> <script>window.location.replace('?p=blog&a=post&id=<?= $_GET['id'] ?>');</script> <?php
           $this->oUtil->sSuccMsg = 'Le Commentaire a été posté !';
