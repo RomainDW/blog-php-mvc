@@ -30,13 +30,27 @@ class Blog
 
 	public function getComments()
 	{
-		$oStmt = $this->oDb->query("SELECT * FROM comments WHERE post_id = '{$_GET['id']}' ORDER BY date DESC");
+		$oStmt = $this->oDb->query("
+    SELECT Users.id,
+           comments.user_id,
+           comments.comment,
+           comments.post_id,
+           comments.date,
+           comments.signals,
+           Users.pseudo,
+           comments.id
+    FROM comments
+    JOIN Users
+    ON comments.user_id = Users.id
+    WHERE post_id = '{$_GET['id']}'
+    ORDER BY date DESC
+       ");
     return $oStmt->fetchAll(\PDO::FETCH_OBJ);
 	}
 
 	public function addComment(array $aData)
 	{
-		$oStmt = $this->oDb->prepare('INSERT INTO comments (name, comment, post_id, date) VALUES(:name, :comment, :post_id, NOW())');
+		$oStmt = $this->oDb->prepare('INSERT INTO comments (user_id, comment, post_id, date) VALUES(:user_id, :comment, :post_id, NOW())');
     return $oStmt->execute($aData);
 	}
 
@@ -147,6 +161,14 @@ class Blog
   public function setUnseen($id)
   {
     $oStmt = $this->oDb->exec("UPDATE comments SET seen = '0' WHERE id='$id'");
+  }
+
+  public function getUserId($userId)
+  {
+    $oStmt = $this->oDb->prepare('SELECT id FROM Users WHERE pseudo = :pseudo');
+    $oStmt->bindParam(':pseudo', $userId, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->fetch(\PDO::FETCH_OBJ);
   }
 
 
