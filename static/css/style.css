@@ -1,6 +1,14 @@
 body
 {
   background-color: #ECEFF1;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main
+{
+  flex: 1 0 auto;
 }
 
 .is_signaled
@@ -12,6 +20,14 @@ body
 .vote-form
 {
   display: inline-block;
+}
+
+.legalNotice{
+  padding: 0 0 50px 0;
+}
+
+.footer-row{
+  margin-bottom:0;
 }
 
 
