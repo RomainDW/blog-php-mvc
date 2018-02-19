@@ -1,82 +1,86 @@
 <?php require 'inc/header.php' ?>
 <?php require 'inc/topbar.php' ?>
-<div class="container">
 
-<!-- Article -->
+<main>
+    <div class="container">
 
-<?php if (empty($this->oPost)): ?>
-    <h1>cet article n'existe pas !</h1>
-<?php else: ?>
+        <!-- Article -->
 
-    <article>
-        <time datetime="<?=$this->oPost->createdDate?>" pubdate="pubdate"></time>
+        <?php if (empty($this->oPost)): ?>
+            <h1>cet article n'existe pas !</h1>
+        <?php else: ?>
 
-        <h1><?=htmlspecialchars($this->oPost->title)?></h1>
-        <p><?=nl2br($this->oPost->body)?></p>
-	</article>
-	<hr>
-	<p><em>Posté le <?=date('d/m/Y à H:i', strtotime($this->oPost->createdDate));?></em></p>
-	<br>
+            <article>
+                <time datetime="<?=$this->oPost->createdDate?>" pubdate="pubdate"></time>
 
-<!-- Commentaires -->
+                <h1><?=htmlspecialchars($this->oPost->title)?></h1>
+                <p><?=nl2br($this->oPost->body)?></p>
+            </article>
+            <hr>
+            <p><em>Posté le <?=date('d/m/Y à H:i', strtotime($this->oPost->createdDate));?></em></p>
+            <br>
 
-	<h4 id="comment_ink">Commentaires :</h4>
-	<?php if (empty($this->oComments)): ?>
-	<p class="bold">Aucun commentaire n'a été publié... Soyez le premier!</p>
-	<?php else: ?>
+            <!-- Commentaires -->
 
-	<?php foreach ($this->oComments as $oComment): ?>
+            <h4 id="comment_ink">Commentaires :</h4>
+            <?php if (empty($this->oComments)): ?>
+                <p class="bold">Aucun commentaire n'a été publié... Soyez le premier!</p>
+            <?php else: ?>
 
-    <blockquote id="blockquote">
-      <strong><?= $oComment->pseudo ?> <em>(Le <?= date('d/m/Y', strtotime($oComment->date)) ?>)</em></strong>
-      <p><?= nl2br($oComment->comment); ?></p>
-    </blockquote>
-    <?php if (!empty($_SESSION['is_admin'])): ?>
-      <a href="<?=ROOT_URL?>?p=admin&amp;a=deleteComment&amp;id=<?=$oComment->id?>&amp;postid=<?=$this->oPost->id?>"><button class="btn red waves-effect waves-light">Supprimer</button></a>
-    <?php endif ?>
+                <?php foreach ($this->oComments as $oComment): ?>
 
-    <?php if(!empty($_SESSION['is_user'])): ?>
-      <?php $color = 'is_signaled'; ?>
-      <?php $aIsSignaled = array(); ?>
-      <?php foreach($this->oUserVotes as $key => $userVote): ?>
-        <?php $aIsSignaled[] = $userVote->comment_id; ?>
-      <?php endforeach ?>
-      <?php if(in_array($oComment->id ,$aIsSignaled) == false): ?>
-        <?php $color = '' ;?>
-      <?php endif ?>
-      <pre>
+                    <blockquote id="blockquote">
+                        <strong><?= $oComment->pseudo ?> <em>(Le <?= date('d/m/Y', strtotime($oComment->date)) ?>)</em></strong>
+                        <p><?= nl2br($oComment->comment); ?></p>
+                    </blockquote>
+                    <?php if (!empty($_SESSION['is_admin'])): ?>
+                        <a href="<?=ROOT_URL?>?p=admin&amp;a=deleteComment&amp;id=<?=$oComment->id?>&amp;postid=<?=$this->oPost->id?>"><button class="btn red waves-effect waves-light">Supprimer</button></a>
+                    <?php endif ?>
+
+                    <?php if(!empty($_SESSION['is_user'])): ?>
+                        <?php $color = 'is_signaled'; ?>
+                        <?php $aIsSignaled = array(); ?>
+                        <?php foreach($this->oUserVotes as $key => $userVote): ?>
+                            <?php $aIsSignaled[] = $userVote->comment_id; ?>
+                        <?php endforeach ?>
+                        <?php if(in_array($oComment->id ,$aIsSignaled) == false): ?>
+                            <?php $color = '' ;?>
+                        <?php endif ?>
+                        <pre>
       </pre>
-      <form class="vote-form" action="?p=blog&a=signal&postid=<?=$this->oPost->id?>&commentId=<?=$oComment->id?>&vote=1" method="POST">
-        <button class="btn red waves-effect waves-light signal-btn <?= $color ?>" type="submit">Signaler</button>
-      </form>
-    <?php endif ?>
+                        <form class="vote-form" action="?p=blog&a=signal&postid=<?=$this->oPost->id?>&commentId=<?=$oComment->id?>&vote=1" method="POST">
+                            <button class="btn red waves-effect waves-light signal-btn <?= $color ?>" type="submit">Signaler</button>
+                        </form>
+                    <?php endif ?>
 
-	<?php endforeach ?>
-	<?php endif ?>
-  <br>
-  <hr>
-  <br>
+                <?php endforeach ?>
+            <?php endif ?>
+            <br>
+            <hr>
+            <br>
 
-<!-- Formulaire -->
-  <?php if(empty($_SESSION['is_user']) && empty($_SESSION['is_admin'])): ?>
-  <a href="<?=ROOT_URL?>?p=blog&amp;a=login"><button class="btn waves-effect waves-light">Se connecter pour commenter</button></a>
-  <br><br>
-  <?php else: ?>
-  <h4>Commenter :</h4>
-	<?php require 'inc/msg.php' ?>
-	<form method="post">
-		<div class="row">
-			<div class="input-field col s12">
-				<textarea name="comment" id="comment" class="materialize-textarea" maxlength="1200"></textarea>
-				<label for="comment">Commentaire</label>
-			</div>
-			<div class="col s12">
-        <button type="submit" name="submit_comment" class="btn waves-effect waves-light">
-  				Commenter
-  			</button>
-			</div>
-		</div>
-	</form>
-  <?php endif ?>
-<?php endif ?>
-</div>
+            <!-- Formulaire -->
+            <?php if(empty($_SESSION['is_user']) && empty($_SESSION['is_admin'])): ?>
+                <a href="<?=ROOT_URL?>?p=blog&amp;a=login"><button class="btn waves-effect waves-light">Se connecter pour commenter</button></a>
+                <br><br>
+            <?php else: ?>
+                <h4>Commenter :</h4>
+                <?php require 'inc/msg.php' ?>
+                <form method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea name="comment" id="comment" class="materialize-textarea" maxlength="1200"></textarea>
+                            <label for="comment">Commentaire</label>
+                        </div>
+                        <div class="col s12">
+                            <button type="submit" name="submit_comment" class="btn waves-effect waves-light">
+                                Commenter
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            <?php endif ?>
+        <?php endif ?>
+    </div>
+</main>
+<?php require 'inc/footer.php' ?>
