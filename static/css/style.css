@@ -36,7 +36,9 @@ main
 @media all and (max-width: 785px){
   .page-title
   {
-    font-size: 2em;
+    font-size: 3em;
+    text-align: center;
+    font-weight: bold;
   }
 }
 
@@ -48,6 +50,9 @@ main
 
   .page-title
   {
-    font-size: 1.3em;
+    font-size: 2em;
+    text-align: center;
+    font-weight: bold;
+    text-align: center;
   }
 }
