@@ -2,7 +2,7 @@
 <?php require 'inc/topbar.php' ?>
 <main>
   <div class="container">
-    <h1>Liste des chapitres</h1>
+    <h1 class="page-title">Liste des chapitres</h1>
     <?php foreach ($this->oPosts as $oPost): ?>
       <div class="row">
         <hr>
