@@ -5,3 +5,7 @@ ErrorDocument 408 /blog-php-mvc/view/error.php
 ErrorDocument 500 /blog-php-mvc/view/error.php
 ErrorDocument 502 /blog-php-mvc/view/error.php
 ErrorDocument 504 /blog-php-mvc/view/error.php
+
+RewriteEngine On
+RewriteRule ^([^_]*)_([^_]*)\.html$ /blog-php-mvc/?p=$1&a=$2 [L]
+RewriteRule ^([^_]*)_([^_]*)_([^_]*)\.html$ /blog-php-mvc/?p=$1&a=$2&id=$3 [L]
