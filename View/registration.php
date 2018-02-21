@@ -42,7 +42,7 @@
         </form>
       </div>
       <center>
-        <a href="<?=ROOT_URL?>?p=blog&amp;a=login">Déjà inscrit ?</a>
+        <a href="<?=ROOT_URL?>blog_login.html">Déjà inscrit ?</a>
       </center>
     </div>
   </div>

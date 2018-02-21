@@ -17,5 +17,5 @@
 
   <p>Le document / fichier demandé n'a pas été trouvé sur ce serveur</p>
 
-  <a href="<?=ROOT_URL?>?p=blog&amp;a=index" class="btn blue waves-effect waves-light">Retourner à l'accueil</a>
+  <a href="<?=ROOT_URL?>blog_index.html" class="btn blue waves-effect waves-light">Retourner à l'accueil</a>
 </div>

@@ -39,7 +39,7 @@
 
   		</div>
       <center>
-        <a href="<?=ROOT_URL?>?p=blog&amp;a=registration">Pas encore inscrit ?</a>
+        <a href="<?=ROOT_URL?>blog_registration">Pas encore inscrit ?</a>
       </center>
   	</div>
   </div>

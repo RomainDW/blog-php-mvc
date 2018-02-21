@@ -11,7 +11,7 @@ class Admin extends Blog
     public function edit()
     {
       if (!$this->isLogged())
-      header('Location: ?p=blog&a=index');
+      header('Location: blog_index.html');
 
       $this->oUtil->oPosts = $this->oModel->getAll();
       $this->oUtil->getView('edit');
@@ -23,7 +23,7 @@ class Admin extends Blog
     public function editPost()
     {
       if (!$this->isLogged())
-      header('Location: ?p=blog&a=index');
+      header('Location: blog_index.html');
 
       if (isset($_POST['edit_submit']))
       {
@@ -68,7 +68,7 @@ class Admin extends Blog
     public function add()
     {
       if (!$this->isLogged())
-      header('Location: ?p=blog&a=index');
+      header('Location: blog_index.html');
 
       if (isset($_POST['add_submit']))
       {
@@ -108,7 +108,7 @@ class Admin extends Blog
     public function dashboard()
     {
       if (!$this->isLogged())
-      header('Location: ?p=blog&a=index');
+      header('Location: blog_index.html');
 
       $this->oUtil->getModel('Admin');
       $this->oModel = new \BlogPhp\Model\Admin;
@@ -163,7 +163,7 @@ class Admin extends Blog
     public function delete()
     {
       if (!$this->isLogged())
-      header('Location: ?p=blog&a=index');
+      header('Location: blog_index.html');
 
       $this->oUtil->getModel('Admin');
       $this->oModel = new \BlogPhp\Model\Admin;
@@ -172,14 +172,14 @@ class Admin extends Blog
       $this->oModel->deleteVotes($_GET['id']);// supprime les votes des commentaires du post
       $this->oModel->delete($_GET['id']); // supprime le post
 
-      header('Location: ?p=admin&a=edit');
+      header('Location: admin_edit.html');
     }
 
     // On update le commentaire en mettant "vu"
     public function see_comment()
     {
       if (!$this->isLogged())
-      header('Location: ?p=blog&a=index');
+      header('Location: blog_index.html');
 
       $this->oUtil->getModel('Admin');
       $this->oModel = new \BlogPhp\Model\Admin;
@@ -191,7 +191,7 @@ class Admin extends Blog
     public function delete_comment()
     {
       if (!$this->isLogged())
-      header('Location: ?p=blog&a=index');
+      header('Location: blog_index.html');
 
       $this->oUtil->getModel('Admin');
       $this->oModel = new \BlogPhp\Model\Admin;
@@ -204,7 +204,7 @@ class Admin extends Blog
     public function deleteComment()
     {
       if (!$this->isLogged())
-      header('Location: ?p=blog&a=index');
+      header('Location: blog_index.html');
 
       $oPost = $this->oUtil->oPost = $this->oModel->getById($_GET['postid']); // Récupère les données du post
       $this->oUtil->getModel('Admin');
@@ -214,7 +214,7 @@ class Admin extends Blog
       $this->oModel->deleteComment($iId); // supprime le commentaire
       $this->oModel->deleteVote($iId); // supprime les signalements du commentaire
 
-      header("Location: ?p=blog&a=post&id=$oPost->id");
+      header("Location: blog_post_$oPost->id.html");
     }
 
     // On obtient la couleur associé à chaque table

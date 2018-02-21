@@ -18,7 +18,7 @@
   					<div class="col s12 m6 l4">
   						<img src="<?=ROOT_URL?>static/img/posts/<?= $oPost->image ?>" class="materialboxed responsive-img" alt="<?= $oPost->title ?>"/>
   						<br/><br/>
-  				  	<a class="btn light-blue waves-effect waves-light" href="<?=ROOT_URL?>?p=blog&amp;a=post&amp;id=<?=$oPost->id?>">Lire le chapitre</a>
+  				  	<a class="btn light-blue waves-effect waves-light" href="<?=ROOT_URL?>blog_post_<?=$oPost->id?>.html">Lire le chapitre</a>
   					</div>
   				</div>
   			</div>

@@ -40,7 +40,7 @@
       		<?php if(!empty($this->oComments)): ?>
       			<?php foreach($this->oComments as $comment): ?>
       				<tr id="commentaire_<?= $comment->id ?>">
-      					<td><a href="?p=blog&a=post&id=<?=$comment->post_id?>"><strong><?= $comment->title ?></strong></a></td>
+      					<td><a href="blog_post_<?=$comment->post_id?>.html"><strong><?= $comment->title ?></strong></a></td>
       					<td><?= substr($comment->comment,0,100); ?></td>
       					<td>
       						<a id="<?= $comment->id ?>" class="btn-floating btn-small waves-effect waves-light green see_comment"><i class="material-icons">done</i></a>
@@ -85,7 +85,7 @@
       		<?php if(!empty($this->oSignaledComments)): ?>
       			<?php foreach($this->oSignaledComments as $signaledComment): ?>
       				<tr id="commentaire_<?= $signaledComment->id ?>">
-      					<td><a href="?p=blog&a=post&id=<?=$signaledComment->post_id?>"><strong><?= $signaledComment->title ?></strong></a></td>
+      					<td><a href="blog_post_<?=$signaledComment->post_id?>.html"><strong><?= $signaledComment->title ?></strong></a></td>
       					<td><?= substr($signaledComment->comment,0,100); ?></td>
                 <td><?= $signaledComment->signals ?></td>
       					<td>
