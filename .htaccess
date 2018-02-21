@@ -1,0 +1,7 @@
+ErrorDocument 403 /blog-php-mvc/view/error.php
+ErrorDocument 404 /blog-php-mvc/view/error.php
+ErrorDocument 405 /blog-php-mvc/view/error.php
+ErrorDocument 408 /blog-php-mvc/view/error.php
+ErrorDocument 500 /blog-php-mvc/view/error.php
+ErrorDocument 502 /blog-php-mvc/view/error.php
+ErrorDocument 504 /blog-php-mvc/view/error.php
