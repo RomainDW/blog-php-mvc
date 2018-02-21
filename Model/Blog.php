@@ -11,6 +11,10 @@ class Blog
     $this->oDb = new \BlogPhp\Engine\Db;
   }
 
+
+  /* ========== SELECT ========== */
+
+
   public function get($iOffset, $iLimit)
   {
     $oStmt = $this->oDb->prepare('SELECT * FROM Posts ORDER BY createdDate DESC LIMIT :offset, :limit');
@@ -20,6 +24,7 @@ class Blog
     return $oStmt->fetchAll(\PDO::FETCH_OBJ);
   }
 
+
   public function getById($iId)
   {
     $oStmt = $this->oDb->prepare('SELECT * FROM Posts WHERE id = :postId LIMIT 1');
@@ -27,6 +32,7 @@ class Blog
     $oStmt->execute();
     return $oStmt->fetch(\PDO::FETCH_OBJ);
   }
+
 
 	public function getComments()
 	{
@@ -48,17 +54,13 @@ class Blog
     return $oStmt->fetchAll(\PDO::FETCH_OBJ);
 	}
 
-	public function addComment(array $aData)
-	{
-		$oStmt = $this->oDb->prepare('INSERT INTO comments (user_id, comment, post_id, date) VALUES(:user_id, :comment, :post_id, NOW())');
-    return $oStmt->execute($aData);
-	}
 
   public function getAll()
   {
     $oStmt = $this->oDb->query('SELECT * FROM Posts ORDER BY createdDate DESC');
     return $oStmt->fetchAll(\PDO::FETCH_OBJ);
   }
+
 
   public function isAdmin($sEmail)
   {
@@ -68,11 +70,12 @@ class Blog
     return $oStmt->fetch(\PDO::FETCH_OBJ);
   }
 
+
   public function login($sEmail, $sPassword)
   {
     $a = [
       'email' 	  => $sEmail,
-			'password' 	=> sha1($sPassword)
+      'password' 	=> sha1($sPassword)
     ];
     $sSql = "SELECT * FROM Users WHERE email = :email AND password = :password";
     $oStmt = $this->oDb->prepare($sSql);
@@ -82,11 +85,69 @@ class Blog
     return $exist;
   }
 
+
+  public function signalExist($aData)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Votes WHERE comment_id = :comment_id AND user_id = :user_id');
+    $oStmt->bindValue(':comment_id', $aData['comment_id'], \PDO::PARAM_INT);
+    $oStmt->bindValue(':user_id', $aData['user_id'], \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->rowCount();
+  }
+
+
+  public function userVotes($user)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Votes WHERE user_id = :user_id');
+    $oStmt->bindValue(':user_id', $user, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+  }
+
+
+  public function pseudoTaken($pseudo)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Users WHERE pseudo = :pseudo');
+    $oStmt->bindParam(':pseudo', $pseudo, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->rowCount();
+  }
+
+
+  public function emailTaken($sEmail)
+  {
+    $oStmt = $this->oDb->prepare('SELECT * FROM Users WHERE email = :email');
+    $oStmt->bindParam(':email', $sEmail, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->rowCount();
+  }
+
+
+  public function getUserId($userId)
+  {
+    $oStmt = $this->oDb->prepare('SELECT id FROM Users WHERE pseudo = :pseudo');
+    $oStmt->bindParam(':pseudo', $userId, \PDO::PARAM_STR);
+    $oStmt->execute();
+    return $oStmt->fetch(\PDO::FETCH_OBJ);
+  }
+
+
+  /* ========== INSERT ========== */
+
+
+	public function addComment(array $aData)
+	{
+		$oStmt = $this->oDb->prepare('INSERT INTO comments (user_id, comment, post_id, date) VALUES(:user_id, :comment, :post_id, NOW())');
+    return $oStmt->execute($aData);
+	}
+
+
   public function addUser($aData)
   {
     $oStmt = $this->oDb->prepare('INSERT INTO Users (email, pseudo, password) VALUES(:email, :pseudo, :password)');
     return $oStmt->execute($aData);
   }
+
 
   public function signalComment($aData)
   {
@@ -107,22 +168,30 @@ class Blog
     }
   }
 
-  public function signalExist($aData)
+
+  /* ========== UPDATE ========== */
+
+
+  public function substrSignal($id)
   {
-    $oStmt = $this->oDb->prepare('SELECT * FROM Votes WHERE comment_id = :comment_id AND user_id = :user_id');
-    $oStmt->bindValue(':comment_id', $aData['comment_id'], \PDO::PARAM_INT);
-    $oStmt->bindValue(':user_id', $aData['user_id'], \PDO::PARAM_STR);
-    $oStmt->execute();
-    return $oStmt->rowCount();
+    $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals - '1' WHERE id='$id'");
   }
 
-  public function userVotes($user)
+
+  public function addSignal($id)
   {
-    $oStmt = $this->oDb->prepare('SELECT * FROM Votes WHERE user_id = :user_id');
-    $oStmt->bindValue(':user_id', $user, \PDO::PARAM_STR);
-    $oStmt->execute();
-    return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals + '1' WHERE id='$id'");
   }
+  
+
+  public function setUnseen($id)
+  {
+    $oStmt = $this->oDb->exec("UPDATE comments SET seen = '0' WHERE id='$id'");
+  }
+
+
+  /* ========== DELETE ========== */
+
 
   public function deleteUserVote($aData)
   {
@@ -130,45 +199,6 @@ class Blog
     $oStmt->bindParam(':comment_id', $aData['comment_id'], \PDO::PARAM_INT);
     $oStmt->bindParam(':user_id', $aData['user_id'], \PDO::PARAM_STR);
     return $oStmt->execute();
-  }
-
-  public function pseudoTaken($pseudo)
-  {
-    $oStmt = $this->oDb->prepare('SELECT * FROM Users WHERE pseudo = :pseudo');
-    $oStmt->bindParam(':pseudo', $pseudo, \PDO::PARAM_STR);
-    $oStmt->execute();
-    return $oStmt->rowCount();
-  }
-
-  public function emailTaken($sEmail)
-  {
-    $oStmt = $this->oDb->prepare('SELECT * FROM Users WHERE email = :email');
-    $oStmt->bindParam(':email', $sEmail, \PDO::PARAM_STR);
-    $oStmt->execute();
-    return $oStmt->rowCount();
-  }
-
-  public function substrSignal($id)
-  {
-    $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals - '1' WHERE id='$id'");
-  }
-
-  public function addSignal($id)
-  {
-    $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals + '1' WHERE id='$id'");
-  }
-
-  public function setUnseen($id)
-  {
-    $oStmt = $this->oDb->exec("UPDATE comments SET seen = '0' WHERE id='$id'");
-  }
-
-  public function getUserId($userId)
-  {
-    $oStmt = $this->oDb->prepare('SELECT id FROM Users WHERE pseudo = :pseudo');
-    $oStmt->bindParam(':pseudo', $userId, \PDO::PARAM_STR);
-    $oStmt->execute();
-    return $oStmt->fetch(\PDO::FETCH_OBJ);
   }
 
 
