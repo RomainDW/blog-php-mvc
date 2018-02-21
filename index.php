@@ -14,7 +14,7 @@ try
     require ROOT_PATH . 'Engine/Loader.php';
     E\Loader::getInstance()->init(); // Charge les class nécessaires
     $aParams = ['ctrl' => (!empty($_GET['p']) ? $_GET['p'] : 'blog'), 'act' => (!empty($_GET['a']) ? $_GET['a'] : 'index')]; // si p est vide : p=blog, si a est vide : a=index
-    E\Router::run($aParams); // $aParams contient le controller et l'action
+    E\Router::run($aParams); // Le routeur va lancer le Loader qui chargera le controller et l'action nécessaire
 }
 catch (\Exception $oE)
 {
