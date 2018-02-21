@@ -21,7 +21,7 @@ class Loader
 
     private function _loadClasses($sClass)
     {
-        // Suppression du  namespace et du backslash
+        // Remplacement du  namespace et du backslash
         $sClass = str_replace(array(__NAMESPACE__, 'BlogPhp', '\\'), '/', $sClass);
 
         if (is_file(__DIR__ . '/' . $sClass . '.php'))
