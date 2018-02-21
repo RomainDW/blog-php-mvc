@@ -22,10 +22,10 @@ class Router
             // call_user_func : Appelle une fonction de rappel callback fournie par le paramètre callback où les autres arguments seront passés en paramètre.
             if ((new \ReflectionClass($oCtrl))->hasMethod($aParams['act']) && (new \ReflectionMethod($oCtrl, $aParams['act']))->isPublic())// vérifie si la méthode de act est définit et public
                 call_user_func(array($oCtrl, $aParams['act'])); // execute la méthode demandé par a='méthode demandé'
-            else
+            else // si le controller n'est pas reconnu alors renvoie a la page not found
                 call_user_func(array($oCtrl, 'notFound'));
         }
-        else // si le controller n'est pas trouvé alors renvoie a la page not found
+        else // si le controller n'existe pas alors renvoie a la page not found
         {
             call_user_func(array(new $sDefCtrl, 'notFound'));
         }
