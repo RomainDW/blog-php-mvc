@@ -13,7 +13,7 @@
       <!-- ARTICLES -->
       <?php foreach ($this->oPosts as $oPost): ?>
         <div class="col l6 m6 s12">
-          <div class="card">
+          <div class="card hoverable">
             <div class="card-content">
               <h5><a class="grey-text text-darken-2" href="<?=ROOT_URL?>?p=blog&amp;a=post&amp;id=<?=$oPost->id?>"><?=htmlspecialchars($oPost->title)?></a></h5>
               <h6 class="grey-text">Le <?=date('d/m/Y à H:i', strtotime($oPost->createdDate));?></h6>
