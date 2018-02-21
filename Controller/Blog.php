@@ -29,6 +29,7 @@ class Blog
     $this->_iId = (int) (!empty($_GET['id']) ? $_GET['id'] : 0);
   }
 
+	/* ================ ACTIONS AVEC VUS ================ */
 
   // On obtient seulement les X derniers posts puis on affiche index.php
   public function index()
@@ -84,15 +85,6 @@ class Blog
     $this->oUtil->getView('chapters');
   }
 
-  protected function isLogged()
-  {
-    return !empty($_SESSION['is_admin']); // si admin est connecté return true
-  }
-
-	protected function userIsLogged()
-  {
-    return !empty($_SESSION['is_user']); // si user est connecté return true
-  }
 
 	// Affiche la page login.php puis suite à l'envoie du formulaire, on vérifie si l'email et le mdp correspondent, puis connecte en tant qu'admin ou user selon le mail.
 	public function login()
@@ -132,24 +124,6 @@ class Blog
 			}
 
 			$this->oUtil->getView('login');
-	}
-
-	public function logout()
-	{
-		if (!$this->isLogged())
-			header('Location: ?p=blog&a=index');
-
-		// Si il y a une session, la détruit pour déconnecter l'admin
-		if (!empty($_SESSION))
-		{
-			$_SESSION = array();
-			session_unset();
-			session_destroy();
-		}
-
-		// Redirection à la page d'accueil
-		header('Location: ' . ROOT_URL);
-		exit;
 	}
 
 	// Affiche la page registration.php
@@ -199,6 +173,52 @@ class Blog
 		$this->oUtil->getView('registration');
 	}
 
+
+
+	public function legalNotice()
+	{
+    $this->oUtil->getView('legalNotice');
+	}
+
+
+
+	/* ================ ACTIONS SANS VUS ================ */
+
+
+
+	// si admin est connecté return true
+	protected function isLogged()
+	{
+		return !empty($_SESSION['is_admin']);
+	}
+
+
+	// si user est connecté return true
+	protected function userIsLogged()
+	{
+		return !empty($_SESSION['is_user']);
+	}
+
+
+	// Si il y a une session, la détruit pour déconnecter l'admin
+	public function logout()
+	{
+		if (!$this->isLogged())
+			header('Location: ?p=blog&a=index');
+
+		if (!empty($_SESSION))
+		{
+			$_SESSION = array();
+			session_unset();
+			session_destroy();
+		}
+
+		// Redirection à la page d'accueil
+		header('Location: ' . ROOT_URL);
+		exit;
+	}
+
+
 	// Suite à l'envoie du formulaire, on insert dans la table Votes un signalement, si le signalement existe déja alors on le supprime
 	public function signal ()
 	{
@@ -233,11 +253,7 @@ class Blog
 			$this->oUtil->getView('not_found');
 		}
 		header('Location: ' . ROOT_URL . '?p=blog&a=post&id=' . $_GET['postid'] . '#comment_ink');
-
 	}
 
-	public function legalNotice()
-	{
-    $this->oUtil->getView('legalNotice');
-	}
+
 }
