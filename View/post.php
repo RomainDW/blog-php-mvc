@@ -48,7 +48,7 @@
                         <?php endif ?>
                         <pre>
       </pre>
-                        <form class="vote-form" action="?p=blog&a=signal&postid=<?=$this->oPost->id?>&commentId=<?=$oComment->id?>&vote=1" method="POST">
+                        <form class="vote-form" action="blog_signal_<?=$this->oPost->id?>_<?=$oComment->id?>_1.html" method="POST">
                             <button class="btn red waves-effect waves-light signal-btn <?= $color ?>" type="submit">Signaler</button>
                         </form>
                     <?php endif ?>
