@@ -21,7 +21,7 @@
     			<textarea name="body" id="editable" class="materialize-textarea"><?=$this->oPost->body?></textarea>
     		</div>
 
-        <div class="col s12 left-align">
+        <div class="col s6 left-align">
     			<br><br>
           <div class="input-field file-field">
     				<div class="btn light-blue">
@@ -34,7 +34,7 @@
     			</div>
     		</div>
 
-    		<div class="col s12 left-align">
+    		<div class="col s6 right-align">
     			<br><br>
     			<button type="submit" class="btn light-green waves-effect waves-light" name="edit_submit">Confirmer</button>
     		</div>
