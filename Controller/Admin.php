@@ -176,7 +176,7 @@ class Admin extends Blog
     }
 
     // On update le commentaire en mettant "vu"
-    public function see_comment()
+    public function seeCommentJs()
     {
       if (!$this->isLogged())
       header('Location: blog_index.html');
@@ -188,7 +188,7 @@ class Admin extends Blog
     }
 
     // On supprime le commentaire ainsi que les signalements associés
-    public function delete_comment()
+    public function deleteCommentJs()
     {
       if (!$this->isLogged())
       header('Location: blog_index.html');

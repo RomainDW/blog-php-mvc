@@ -7,14 +7,14 @@ $(document).ready(function(){
 
 	$('.see_comment').click(function(){
 		var id = $(this).attr('id');
-		$.post('?p=admin&a=see_comment', {id:id}, function(){
+		$.post('admin_seeCommentJs.html', {id:id}, function(){
 			$('#commentaire_'+id).hide();
 		});
 	});
 
 	$('.delete_comment').click(function(){
 		var id = $(this).attr('id');
-		$.post('?p=admin&a=delete_comment', {id:id}, function(){
+		$.post('admin_deleteCommentJs.html', {id:id}, function(){
 			$('#commentaire_'+id).hide();
 		});
 	});
