@@ -38,16 +38,16 @@ class Blog
 	{
 		$oStmt = $this->oDb->query("
     SELECT Users.id,
-           comments.user_id,
-           comments.comment,
-           comments.post_id,
-           comments.date,
-           comments.signals,
+           Comments.user_id,
+           Comments.comment,
+           Comments.post_id,
+           Comments.date,
+           Comments.signals,
            Users.pseudo,
-           comments.id
-    FROM comments
+           Comments.id
+    FROM Comments
     JOIN Users
-    ON comments.user_id = Users.id
+    ON Comments.user_id = Users.id
     WHERE post_id = '{$_GET['id']}'
     ORDER BY date DESC
        ");
@@ -137,7 +137,7 @@ class Blog
 
 	public function addComment(array $aData)
 	{
-		$oStmt = $this->oDb->prepare('INSERT INTO comments (user_id, comment, post_id, date) VALUES(:user_id, :comment, :post_id, NOW())');
+		$oStmt = $this->oDb->prepare('INSERT INTO Comments (user_id, comment, post_id, date) VALUES(:user_id, :comment, :post_id, NOW())');
     return $oStmt->execute($aData);
 	}
 
@@ -151,7 +151,7 @@ class Blog
 
   public function signalComment($aData)
   {
-    $oStmt = $this->oDb->prepare('SELECT * FROM comments WHERE id = :comment_id');
+    $oStmt = $this->oDb->prepare('SELECT * FROM Comments WHERE id = :comment_id');
     $oStmt->bindValue(':comment_id', $aData['comment_id'], \PDO::PARAM_INT);
     $oStmt->execute();
 
@@ -174,19 +174,19 @@ class Blog
 
   public function substrSignal($id)
   {
-    $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals - '1' WHERE id='$id'");
+    $oStmt = $this->oDb->exec("UPDATE Comments SET signals = signals - '1' WHERE id='$id'");
   }
 
 
   public function addSignal($id)
   {
-    $oStmt = $this->oDb->exec("UPDATE comments SET signals = signals + '1' WHERE id='$id'");
+    $oStmt = $this->oDb->exec("UPDATE Comments SET signals = signals + '1' WHERE id='$id'");
   }
-  
+
 
   public function setUnseen($id)
   {
-    $oStmt = $this->oDb->exec("UPDATE comments SET seen = '0' WHERE id='$id'");
+    $oStmt = $this->oDb->exec("UPDATE Comments SET seen = '0' WHERE id='$id'");
   }
 
 
