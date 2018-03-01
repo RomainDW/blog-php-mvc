@@ -3,10 +3,11 @@
 
 <div class="container">
   <?php require 'inc/msg.php' ?>
-  <h1>Modifier l'article :</h1>
+
   <?php if (empty($this->oPost)): ?>
       <p class="error">Cet article n'existe pas !</p>
   <?php else: ?>
+    <h1>Modifier l'article :</h1>
     <form method="post" enctype="multipart/form-data">
     	<div class="row">
 
