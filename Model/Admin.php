@@ -18,22 +18,22 @@ class Admin extends Blog
   public function getCommentsUnseen()
   {
     $oStmt = $this->oDb->query("
-      SELECT  Comments.id,
-              Comments.user_id,
-              Comments.comment,
-              Comments.post_id,
-              Comments.date,
-              Comments.signals,
+      SELECT  comments.id,
+              comments.user_id,
+              comments.comment,
+              comments.post_id,
+              comments.date,
+              comments.signals,
               Posts.title,
               Users.pseudo
-      FROM Comments
+      FROM comments
       JOIN Posts
-      ON Comments.post_id = Posts.id
+      ON comments.post_id = Posts.id
       JOIN Users
-      ON Comments.user_id = Users.id
-      WHERE Comments.seen = '0'
-      AND Comments.signals = '0'
-      ORDER BY Comments.date ASC
+      ON comments.user_id = Users.id
+      WHERE comments.seen = '0'
+      AND comments.signals = '0'
+      ORDER BY comments.date ASC
     ");
 
     $results = [];
@@ -49,22 +49,22 @@ class Admin extends Blog
   public function getSignaledComments()
   {
     $oStmt = $this->oDb->query("
-      SELECT  Comments.id,
-              Comments.user_id,
-              Comments.comment,
-              Comments.post_id,
-              Comments.date,
-              Comments.signals,
+      SELECT  comments.id,
+              comments.user_id,
+              comments.comment,
+              comments.post_id,
+              comments.date,
+              comments.signals,
               Posts.title,
               Users.pseudo
-      FROM Comments
+      FROM comments
       JOIN Posts
-      ON Comments.post_id = Posts.id
+      ON comments.post_id = Posts.id
       JOIN Users
-      ON Comments.user_id = Users.id
-      WHERE Comments.seen = '0'
-      AND Comments.signals > '0'
-      ORDER BY Comments.signals
+      ON comments.user_id = Users.id
+      WHERE comments.seen = '0'
+      AND comments.signals > '0'
+      ORDER BY comments.signals
     ");
 
     $results = [];
@@ -125,9 +125,9 @@ class Admin extends Blog
 
     public function see_comment()
     {
-      $oStmt = $this->oDb->exec("UPDATE Comments SET seen = '1' WHERE id='{$_POST['id']}'");
+      $oStmt = $this->oDb->exec("UPDATE comments SET seen = '1' WHERE id='{$_POST['id']}'");
       $oStmt = $this->oDb->exec("DELETE FROM Votes WHERE comment_id = {$_POST['id']}");
-      $oStmt = $this->oDb->exec("UPDATE Comments SET signals = '0' WHERE id='{$_POST['id']}'");
+      $oStmt = $this->oDb->exec("UPDATE comments SET signals = '0' WHERE id='{$_POST['id']}'");
     }
 
 
@@ -143,7 +143,7 @@ class Admin extends Blog
 
 
     public function deleteComments($iId){
-      $oStmt = $this->oDb->prepare('DELETE FROM Comments WHERE post_id = :postId');
+      $oStmt = $this->oDb->prepare('DELETE FROM comments WHERE post_id = :postId');
       $oStmt->bindParam(':postId', $iId, \PDO::PARAM_INT);
       return $oStmt->execute();
     }
@@ -158,7 +158,7 @@ class Admin extends Blog
 
     public function deleteComment($iId)
     {
-      $oStmt = $this->oDb->prepare('DELETE FROM Comments WHERE id = :id');
+      $oStmt = $this->oDb->prepare('DELETE FROM comments WHERE id = :id');
       $oStmt->bindParam(':id', $iId, \PDO::PARAM_INT);
       return $oStmt->execute();
     }
@@ -174,7 +174,7 @@ class Admin extends Blog
 
     public function delete_comment()
     {
-      $oStmt = $this->oDb->exec("DELETE FROM Comments WHERE id = {$_POST['id']}");
+      $oStmt = $this->oDb->exec("DELETE FROM comments WHERE id = {$_POST['id']}");
       $oStmt = $this->oDb->exec("DELETE FROM Votes WHERE comment_id = {$_POST['id']}");
     }
 
